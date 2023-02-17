@@ -12,6 +12,8 @@ public class Player : MonoBehaviour
     {
         sprite = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
+
+        anim.SetTrigger("Idle");
     }
 
     void Update()
