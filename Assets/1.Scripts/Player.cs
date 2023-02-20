@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     float speed = 3f;
+    public Vector3 inputVec;
     SpriteRenderer sprite;
     Animator anim;
 
@@ -18,16 +19,16 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        float x = Input.GetAxisRaw("Horizontal") * Time.deltaTime * speed;
-        float y = Input.GetAxisRaw("Vertical") * Time.deltaTime * speed;
+        inputVec.x = Input.GetAxisRaw("Horizontal") * Time.deltaTime * speed;
+        inputVec.y = Input.GetAxisRaw("Vertical") * Time.deltaTime * speed;
 
-        transform.position = new Vector2(transform.position.x + x, transform.position.y + y);
+        transform.position = new Vector2(transform.position.x + inputVec.x, transform.position.y + inputVec.y);
 
-        if (x != 0 || y != 0) 
+        if (inputVec.x != 0 || inputVec.y != 0) 
         {
             anim.SetTrigger("Move");
 
-            if (x < 0)
+            if (inputVec.x < 0)
                 sprite.flipX = true;
             else
                 sprite.flipX = false;
