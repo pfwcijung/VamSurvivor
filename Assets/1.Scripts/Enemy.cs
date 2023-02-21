@@ -15,8 +15,6 @@ public class Enemy : MonoBehaviour
     public EnemyData ed = new EnemyData();
     SpriteRenderer sprite;
     Animator anim;
-    float curHP = 1;
-    float MaxHp = 1;
 
     void Start()
     {
@@ -25,7 +23,7 @@ public class Enemy : MonoBehaviour
     }
 
     void Update()
-    {
+    {            
 
     }
 }
