@@ -20,7 +20,7 @@ public class SpawnController : MonoBehaviour
         if(spawnDelayTime >= 1f)
         {
             spawnDelayTime = 0;
-            Spawn(0);
+            Spawn(Random.Range(0, 5));
         }
     }
 

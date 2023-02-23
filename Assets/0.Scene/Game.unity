@@ -154,6 +154,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabs:
   - {fileID: 1366614190690973219, guid: df9fb91f7eb47f8449cf833ba90d1c85, type: 3}
+  - {fileID: 1366614190690973219, guid: ae86a304e040e4544bfe5f2250989982, type: 3}
+  - {fileID: 1366614190690973219, guid: d0829fe5d681b9644b9ee3f45807c0ca, type: 3}
+  - {fileID: 1366614190690973219, guid: a76aec6958acd6b4abc81d493248bacf, type: 3}
+  - {fileID: 1366614190690973219, guid: 51472b82b90a86546a5f274adb0ac853, type: 3}
 --- !u!4 &20146166
 Transform:
   m_ObjectHideFlags: 0
@@ -9265,7 +9269,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 22, y: 18}
+  m_Size: {x: 21, y: 21}
   m_EdgeRadius: 0
 --- !u!1 &1125055480
 GameObject:
