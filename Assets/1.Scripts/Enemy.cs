@@ -6,13 +6,17 @@ public struct EnemyData
 {
     public string targetTag;
     public float speed;
-    public float attDamage;
+    public float damage;
+    public float curHp;
+    public float maxHp;
 }
 
-//Ãß»óÅ¬·¡½º·Î º¯È¯ ¿¹Á¤
+//ì¶”ìƒí´ë˜ìŠ¤ë¡œ ì „í™˜ ì˜ˆì •
 public class Enemy : MonoBehaviour
 {
     public EnemyData ed = new EnemyData();
+    Transform target;
+
     SpriteRenderer sprite;
     Animator anim;
 
@@ -20,10 +24,15 @@ public class Enemy : MonoBehaviour
     {
         sprite = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
+        ed.targetTag = "player";
+        ed.speed = 2f;
+        target = GameObject.FindGameObjectWithTag(ed.targetTag).GetComponent<Transform>();
     }
 
     void Update()
-    {            
+    {
+        transform.position = Vector2.MoveTowards(transform.position, target.position, ed.speed * Time.deltaTime);
 
+        sprite.flipX = target.position.x < transform.position.x;
     }
 }

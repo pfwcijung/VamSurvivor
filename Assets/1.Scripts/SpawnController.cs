@@ -5,7 +5,6 @@ using UnityEngine;
 public class SpawnController : MonoBehaviour
 {
     public Transform[] spawnPoints;
-    public GameObject[] prefabs;
 
     float spawnDelayTime = 0;
     
@@ -27,7 +26,7 @@ public class SpawnController : MonoBehaviour
 
     void Spawn(int index)
     {
-        GameObject enemy = prefabs[index];
-        Instantiate(enemy, spawnPoints[Random.Range(1, spawnPoints.Length)]);
+        GameObject enemy = GameController.instance.spawnEnemy.SpawnAct(index);
+        enemy.transform.position = spawnPoints[Random.Range(1, spawnPoints.Length)].position;
     }
 }
