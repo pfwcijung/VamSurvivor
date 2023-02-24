@@ -15,12 +15,15 @@ public class SpawnController : MonoBehaviour
 
     void Update()
     {
+        if (!GameController.instance.player.isLive)
+            return;
+
         spawnDelayTime += Time.deltaTime;
 
         if(spawnDelayTime >= 1f)
         {
             spawnDelayTime = 0;
-            Spawn(Random.Range(0, 5));
+            Spawn((int)GameController.instance.level % 5);
         }
     }
 

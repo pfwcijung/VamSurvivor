@@ -1,38 +1,50 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.ShaderKeywordFilter;
 using UnityEngine;
 
 public struct EnemyData
 {
-    public string targetTag;
     public float speed;
     public float damage;
     public float curHp;
     public float maxHp;
 }
 
-//ì¶”ìƒí´ë˜ìŠ¤ë¡œ ì „í™˜ ì˜ˆì •
-public class Enemy : MonoBehaviour
+public abstract class Enemy : MonoBehaviour
 {
     public EnemyData ed = new EnemyData();
     Transform target;
-
     SpriteRenderer sprite;
     Animator anim;
 
-    void Start()
+    void Awake()
     {
         sprite = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
-        ed.targetTag = "player";
-        ed.speed = 2f;
-        target = GameObject.FindGameObjectWithTag(ed.targetTag).GetComponent<Transform>();
+        target = GameObject.FindGameObjectWithTag("player").GetComponent<Transform>();
     }
 
     void Update()
     {
+        if (!GameController.instance.player.isLive)
+            return;
+
         transform.position = Vector2.MoveTowards(transform.position, target.position, ed.speed * Time.deltaTime);
 
         sprite.flipX = target.position.x < transform.position.x;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (!GameController.instance.player.isLive)
+            return;
+
+        if (collision.transform == target)
+        {
+            GameController.instance.player.GetDamage(ed.damage);
+        }
+        return;
+        // 1ÃÊ¸¶´Ù Æ½ µ¥¹ÌÁö·Î µé¾î°¡°Ô ÇÏ·Á¸é ??
     }
 }
