@@ -5,6 +5,8 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public Vector3 inputVec;
+    public GameObject nearstTarget;
+
     SpriteRenderer sprite;
     Animator anim;
 
@@ -12,6 +14,7 @@ public class Player : MonoBehaviour
     public float maxHp = 0;
     public bool isLive = true;
     float speed = 3f;
+    float delayTime = 0f;
 
     void Start()
     {
@@ -44,6 +47,14 @@ public class Player : MonoBehaviour
         else
         {
             anim.SetTrigger("Idle");
+        }
+
+        delayTime += Time.deltaTime;
+        if (delayTime > .3f)
+        {
+            GameObject weapon = GameController.instance.spawnEnemy.SpawnWeapon(0);
+            weapon.transform.position = transform.position;
+            delayTime = 0;
         }
     }
 

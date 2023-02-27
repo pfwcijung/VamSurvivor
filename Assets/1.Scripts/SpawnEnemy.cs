@@ -6,16 +6,23 @@ using UnityEngine;
 public class SpawnEnemy : MonoBehaviour
 {
     public GameObject[] prefabs;
+    public GameObject[] weaponPrefabs;
 
     List<GameObject>[] enemys;
+    List<GameObject>[] weapons;
 
     void Start()
     {
         enemys = new List<GameObject>[prefabs.Length];
+        weapons = new List<GameObject>[weaponPrefabs.Length];
 
         for (int i = 0; i < enemys.Length; i++)
         {
             enemys[i] = new List<GameObject>();
+        }
+        for (int i = 0; i < weaponPrefabs.Length; i++)
+        {
+            weapons[i] = new List<GameObject>();
         }
     }
 
@@ -24,5 +31,12 @@ public class SpawnEnemy : MonoBehaviour
         GameObject enemy = Instantiate(prefabs[index], transform);
 
         return enemy;
+    }
+
+    public GameObject SpawnWeapon(int index)
+    {
+        GameObject weapon = Instantiate(weaponPrefabs[index], transform);
+
+        return weapon;
     }
 }
