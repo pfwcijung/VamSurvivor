@@ -8,8 +8,8 @@ public class SpawnEnemy : MonoBehaviour
     public GameObject[] prefabs;
     public GameObject[] weaponPrefabs;
 
-    List<GameObject>[] enemys;
-    List<GameObject>[] weapons;
+    [SerializeField] List<GameObject>[] enemys;
+    [SerializeField] List<GameObject>[] weapons;
 
     void Start()
     {

@@ -29,6 +29,8 @@ public class UIController : MonoBehaviour
         }
 
         hpImage.fillAmount = GameController.instance.player.curHp / GameController.instance.player.maxHp;
+        expImage.fillAmount = GameController.instance.playerCurEXP / GameController.instance.playerMaxEXP;
+
         time.text = string.Format($"{min:00}:{sec:00}");
     }
 }

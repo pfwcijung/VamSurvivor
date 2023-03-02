@@ -9,31 +9,54 @@ public struct EnemyData
     public float damage;
     public float curHp;
     public float maxHp;
+    public float exp;
 }
 
 public abstract class Enemy : MonoBehaviour
 {
     public EnemyData ed = new EnemyData();
 
-    List<GameObject> inAttArea;
-
     Transform target;
     SpriteRenderer sprite;
     Animator anim;
 
     bool isLive = true;
+    bool isAttack = false;
+
+    float delayTime = 1;
+    float deadTime = 0f;
 
     void Awake()
     {
         sprite = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
         target = GameObject.FindGameObjectWithTag("player").GetComponent<Transform>();
+        ed.exp = 10f;
     }
 
     void Update()
     {
         if (!GameController.instance.player.isLive || !isLive)
+        {
+            deadTime += Time.deltaTime;
+
+            if (deadTime > 1.5f)
+            {
+                Destroy(gameObject);
+            }
+
             return;
+        }
+
+        if (isAttack)
+        {
+            if (delayTime > 1f)
+            {
+                delayTime = 0;
+                GameController.instance.player.GetDamage(ed.damage);
+            }
+            delayTime += Time.deltaTime;
+        }
 
         transform.position = Vector2.MoveTowards(transform.position, target.position, ed.speed * Time.deltaTime);
 
@@ -47,30 +70,16 @@ public abstract class Enemy : MonoBehaviour
 
         if (collision.transform == target)
         {
-            GameController.instance.player.GetDamage(ed.damage);
+            isAttack = true;
         }
-        return;
-        // 1초마다 틱 데미지로 들어가게 하려면 ??
     }
-    /*private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.CompareTag("attArea"))
+        if(collision.transform == target)
         {
-            inAttArea.Add(gameObject);
+            isAttack = false;
         }
-
-        float distance = 100f;
-
-        foreach(var item in inAttArea)
-        {
-            float itemDis = Vector3.Distance(item.transform.position, GameController.instance.player.transform.position);
-            if (itemDis < distance)
-            {
-                distance = itemDis;
-                GameController.instance.player.nearstTarget = item.gameObject;
-            }
-        }
-    }*/
+    }
 
     public void GetDamage(float dmg)
     {
@@ -79,10 +88,16 @@ public abstract class Enemy : MonoBehaviour
 
         ed.curHp -= dmg;
 
+        anim.SetTrigger("Hit");
+
         if(ed.curHp <= 0)
         {
             isLive = false;
             anim.SetTrigger("Dead");
+            GetComponent<Collider2D>().isTrigger = true;
+            transform.tag = "Untagged";
+            GameController.instance.playerCurEXP += ed.exp;
+            GameController.instance.attackArea.DestroyOBJ(gameObject);
         }
     }
 }

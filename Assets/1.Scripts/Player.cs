@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     public float curHp = 0f;
     public float maxHp = 0;
     public bool isLive = true;
+
     float speed = 3f;
     float delayTime = 0f;
 
@@ -39,7 +40,7 @@ public class Player : MonoBehaviour
         {
             anim.SetTrigger("Move");
 
-            if (inputVec.x < 0)
+            if (inputVec.x <= 0)
                 sprite.flipX = true;
             else
                 sprite.flipX = false;
@@ -49,12 +50,17 @@ public class Player : MonoBehaviour
             anim.SetTrigger("Idle");
         }
 
-        delayTime += Time.deltaTime;
-        if (delayTime > .3f)
+        if (!nearstTarget)
+            return;
+        else
         {
-            GameObject weapon = GameController.instance.spawnEnemy.SpawnWeapon(0);
-            weapon.transform.position = transform.position;
-            delayTime = 0;
+            delayTime += Time.deltaTime;
+            if (delayTime > .3f)
+            {
+                GameObject weapon = GameController.instance.spawnEnemy.SpawnWeapon(0);
+                weapon.transform.position = transform.position;
+                delayTime = 0;
+            }
         }
     }
 
@@ -64,6 +70,7 @@ public class Player : MonoBehaviour
             return;
 
         curHp -= dmg;
+
         if(curHp <= 0)
         {
             isLive = false;

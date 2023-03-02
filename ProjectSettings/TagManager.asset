@@ -9,6 +9,7 @@ TagManager:
   - ground
   - enemy
   - attArea
+  - weapon
   layers:
   - Default
   - TransparentFX
