@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Security.Permissions;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -50,6 +52,8 @@ public class Player : MonoBehaviour
             anim.SetTrigger("Idle");
         }
 
+        nearstTarget = FindNearestTarget();
+
         if (!nearstTarget)
             return;
         else
@@ -77,5 +81,14 @@ public class Player : MonoBehaviour
             anim.SetTrigger("Dead");
             transform.tag = "Untagged";
         }
+    }
+
+    public GameObject FindNearestTarget()
+    {
+        var objects = GameObject.FindGameObjectsWithTag("enemy").ToList();
+
+        var neareastObj = objects.OrderBy(obj => { return Vector3.Distance(transform.position, obj.transform.position); }).FirstOrDefault();
+
+        return neareastObj;
     }
 }

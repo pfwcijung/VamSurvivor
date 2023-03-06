@@ -4578,7 +4578,10 @@ MonoBehaviour:
   player: {fileID: 740731412}
   attackArea: {fileID: 1224605427}
   level: 0
-  upgrade: 1
+  enemyUpgrade: 1
+  playerLevel: 0
+  playerCurEXP: 0
+  playerMaxEXP: 100
   gameTime: 0
 --- !u!4 &559177413
 Transform:
@@ -13805,12 +13808,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1224605423}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3321fce3b54e96f4dbd34c0359637a06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   InAttArea: []
+  distance: 100
 --- !u!1 &1228260487
 GameObject:
   m_ObjectHideFlags: 0

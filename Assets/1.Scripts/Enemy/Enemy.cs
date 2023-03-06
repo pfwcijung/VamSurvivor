@@ -94,8 +94,9 @@ public abstract class Enemy : MonoBehaviour
         {
             isLive = false;
             anim.SetTrigger("Dead");
-            GetComponent<Collider2D>().isTrigger = true;
             transform.tag = "Untagged";
+            GetComponent<Collider2D>().isTrigger = true;
+            GameController.instance.player.nearstTarget = null;
             GameController.instance.playerCurEXP += ed.exp;
             GameController.instance.attackArea.DestroyOBJ(gameObject);
         }
