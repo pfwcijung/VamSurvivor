@@ -6,23 +6,25 @@ using UnityEngine;
 public class SpawnEnemy : MonoBehaviour
 {
     public GameObject[] prefabs;
-    public GameObject[] weaponPrefabs;
+    public GameObject[] itemObj;
 
     [SerializeField] List<GameObject>[] enemys;
-    [SerializeField] List<GameObject>[] weapons;
+    [SerializeField] List<GameObject>[] items; 
 
     void Start()
     {
         enemys = new List<GameObject>[prefabs.Length];
-        weapons = new List<GameObject>[weaponPrefabs.Length];
 
         for (int i = 0; i < enemys.Length; i++)
         {
             enemys[i] = new List<GameObject>();
         }
-        for (int i = 0; i < weaponPrefabs.Length; i++)
+
+        items = new List<GameObject>[itemObj.Length];
+
+        for (int i = 0; i < itemObj.Length; i++)
         {
-            weapons[i] = new List<GameObject>();
+            items[i] = new List<GameObject>();
         }
     }
 
@@ -33,10 +35,10 @@ public class SpawnEnemy : MonoBehaviour
         return enemy;
     }
 
-    public GameObject SpawnWeapon(int index)
+    public GameObject SpawnItem(int index)
     {
-        GameObject weapon = Instantiate(weaponPrefabs[index], transform);
+        GameObject item = Instantiate(prefabs[index], transform);
 
-        return weapon;
+        return item;
     }
 }

@@ -6,19 +6,19 @@ public class Bullet0 : MonoBehaviour
 {
     GameObject target;
 
-    public float damage = 10f;
-    public float speed = 3f;
+    public float damage;
+    public float speed = 10f;
 
     float destroyTime = 0f;
 
     void Start()
     {
         target = GameController.instance.player.nearstTarget;
+        damage = 10f + (2 * GameController.instance.playerLevel);
 
         Vector2 vec = transform.position - target.transform.position;
         float angle = Mathf.Atan2(vec.y, vec.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
-        //transform.Translate(Vector2.up * speed);
     }
 
     void Update()

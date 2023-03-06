@@ -9,6 +9,8 @@ public class UIController : MonoBehaviour
     [SerializeField] private Image hpImage;
     [SerializeField] private Image expImage;
     [SerializeField] private TMP_Text time;
+    [SerializeField] private TMP_Text level;
+    [SerializeField] private TMP_Text killcount;
 
     float sec = 0;
     float min = 0;
@@ -19,7 +21,10 @@ public class UIController : MonoBehaviour
     void Update()
     {
         if (!GameController.instance.player.isLive)
+        {
+            hpImage.enabled = false;
             return;
+        }
 
         sec += Time.deltaTime;
         if (sec > 59)
@@ -32,5 +37,7 @@ public class UIController : MonoBehaviour
         expImage.fillAmount = GameController.instance.playerCurEXP / GameController.instance.playerMaxEXP;
 
         time.text = string.Format($"{min:00}:{sec:00}");
+        level.text = string.Format($"Lv.{GameController.instance.playerLevel:00}");
+        killcount.text = string.Format($"{GameController.instance.killCount:000}");
     }
 }

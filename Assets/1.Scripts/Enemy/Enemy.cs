@@ -31,7 +31,6 @@ public abstract class Enemy : MonoBehaviour
         sprite = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
         target = GameObject.FindGameObjectWithTag("player").GetComponent<Transform>();
-        ed.exp = 10f;
     }
 
     void Update()
@@ -42,6 +41,7 @@ public abstract class Enemy : MonoBehaviour
 
             if (deadTime > 1.5f)
             {
+                DropItems();
                 Destroy(gameObject);
             }
 
@@ -88,6 +88,7 @@ public abstract class Enemy : MonoBehaviour
 
         ed.curHp -= dmg;
 
+        transform.Translate(Vector2.zero);
         anim.SetTrigger("Hit");
 
         if(ed.curHp <= 0)
@@ -97,8 +98,26 @@ public abstract class Enemy : MonoBehaviour
             transform.tag = "Untagged";
             GetComponent<Collider2D>().isTrigger = true;
             GameController.instance.player.nearstTarget = null;
-            GameController.instance.playerCurEXP += ed.exp;
-            GameController.instance.attackArea.DestroyOBJ(gameObject);
+            GameController.instance.killCount++;
+        }
+    }
+
+    public void DropItems()
+    {
+        if (ed.exp < 50)
+        {
+            GameObject item = GameController.instance.spawnEnemy.SpawnItem(0);
+            item.transform.position = transform.position;
+        }
+        else if (ed.exp > 50 && ed.exp < 100)
+        {
+            GameObject item = GameController.instance.spawnEnemy.SpawnItem(1);
+            item.transform.position = transform.position;
+        }
+        else
+        {
+            GameObject item = GameController.instance.spawnEnemy.SpawnItem(2);
+            item.transform.position = transform.position;
         }
     }
 }

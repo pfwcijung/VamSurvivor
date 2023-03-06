@@ -54,14 +54,14 @@ public class Player : MonoBehaviour
 
         nearstTarget = FindNearestTarget();
 
-        if (!nearstTarget)
+        if (nearstTarget == null)
             return;
         else
         {
             delayTime += Time.deltaTime;
-            if (delayTime > .3f)
+            if (delayTime > .3f - (0.01 * GameController.instance.playerLevel))
             {
-                GameObject weapon = GameController.instance.spawnEnemy.SpawnWeapon(0);
+                GameObject weapon = GameController.instance.weapon.SpawnWeapon(0);
                 weapon.transform.position = transform.position;
                 delayTime = 0;
             }
@@ -89,6 +89,9 @@ public class Player : MonoBehaviour
 
         var neareastObj = objects.OrderBy(obj => { return Vector3.Distance(transform.position, obj.transform.position); }).FirstOrDefault();
 
-        return neareastObj;
+        if (Vector2.Distance(neareastObj.transform.position, transform.position) >= 7)
+            return null;
+        else
+            return neareastObj;
     }
 }

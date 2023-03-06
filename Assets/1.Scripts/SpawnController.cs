@@ -20,7 +20,7 @@ public class SpawnController : MonoBehaviour
 
         spawnDelayTime += Time.deltaTime;
 
-        if(spawnDelayTime >= 1f)
+        if(spawnDelayTime >= 1f - (0.02 * GameController.instance.enemyUpgrade))
         {
             spawnDelayTime = 0;
             Spawn((int)GameController.instance.level % 5);

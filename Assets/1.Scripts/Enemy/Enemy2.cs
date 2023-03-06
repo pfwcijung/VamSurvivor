@@ -6,9 +6,12 @@ public class Enemy2 : Enemy
 {
     void Start()
     {
-        ed.speed = 2.5f;
-        ed.damage = 3f;
-        ed.curHp = 30f;
+        float upgrade = GameController.instance.enemyUpgrade;
+
+        ed.speed = (float)(2.5f + (0.2 * upgrade));
+        ed.damage = 3f * upgrade;
+        ed.curHp = 30f * upgrade;
         ed.maxHp = ed.curHp;
+        ed.exp = 20f * upgrade;
     }
 }
