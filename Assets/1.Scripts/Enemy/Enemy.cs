@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEditor.ShaderKeywordFilter;
+using UnityEditor.UIElements;
 using UnityEngine;
 
 public struct EnemyData
@@ -21,6 +23,7 @@ public abstract class Enemy : MonoBehaviour
     Animator anim;
 
     bool isLive = true;
+    bool spawnItem = false;
     bool isAttack = false;
 
     float delayTime = 1;
@@ -39,12 +42,12 @@ public abstract class Enemy : MonoBehaviour
         {
             deadTime += Time.deltaTime;
 
-            if (deadTime > 1.5f)
+            if (deadTime > 1.5f && !spawnItem)
             {
+                spawnItem = true;
                 DropItems();
                 Destroy(gameObject);
             }
-
             return;
         }
 
@@ -93,31 +96,38 @@ public abstract class Enemy : MonoBehaviour
 
         if(ed.curHp <= 0)
         {
-            isLive = false;
-            anim.SetTrigger("Dead");
-            transform.tag = "Untagged";
-            GetComponent<Collider2D>().isTrigger = true;
-            GameController.instance.player.nearstTarget = null;
-            GameController.instance.killCount++;
+            Dead();
         }
+    }
+
+    public void Dead()
+    {
+        isLive = false;
+        anim.SetTrigger("Dead");
+        transform.tag = "Untagged";
+        GetComponent<Collider2D>().isTrigger = true;
+        GameController.instance.player.nearstTarget = null;
+        GameController.instance.killCount++;
     }
 
     public void DropItems()
     {
+        GameObject item;
         if (ed.exp < 50)
         {
-            GameObject item = GameController.instance.spawnEnemy.SpawnItem(0);
-            item.transform.position = transform.position;
+            item = GameController.instance.spawnEnemy.SpawnItem(0, ed.exp);
+            item.transform.position = gameObject.transform.position;
         }
         else if (ed.exp > 50 && ed.exp < 100)
         {
-            GameObject item = GameController.instance.spawnEnemy.SpawnItem(1);
-            item.transform.position = transform.position;
+            item = GameController.instance.spawnEnemy.SpawnItem(1, ed.exp);
+            item.transform.position = gameObject.transform.position;
         }
         else
         {
-            GameObject item = GameController.instance.spawnEnemy.SpawnItem(2);
-            item.transform.position = transform.position;
+            item = GameController.instance.spawnEnemy.SpawnItem(2, ed.exp);
+            item.transform.position = gameObject.transform.position;
         }
+        item.GetComponent<Item>().exp = ed.exp;
     }
 }

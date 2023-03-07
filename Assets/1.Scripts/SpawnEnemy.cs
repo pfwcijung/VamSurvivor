@@ -35,9 +35,9 @@ public class SpawnEnemy : MonoBehaviour
         return enemy;
     }
 
-    public GameObject SpawnItem(int index)
+    public GameObject SpawnItem(int index, float exp)
     {
-        GameObject item = Instantiate(prefabs[index], transform);
+        GameObject item = Instantiate(itemObj[index], transform);
 
         return item;
     }

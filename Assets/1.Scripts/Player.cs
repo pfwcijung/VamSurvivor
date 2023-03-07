@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
     public float maxHp = 0;
     public bool isLive = true;
 
-    float speed = 3f;
+    public float speed = 3f;
     float delayTime = 0f;
 
     void Start()
