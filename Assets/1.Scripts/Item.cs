@@ -17,11 +17,11 @@ public class Item : MonoBehaviour
         if (!GameController.instance.player.isLive)
             return;
 
-        if (Vector2.Distance(target.transform.position, transform.position) <= 2)
+        if (Vector2.Distance(target.transform.position, transform.position) <= 1)
         {
 
             Vector2 vec = transform.position - target.transform.position;
-            vec = vec * Time.deltaTime * GameController.instance.player.speed;
+            vec = vec * Time.deltaTime * GameController.instance.player.speed * 2f;
 
             transform.Translate(new Vector2(-vec.x, -vec.y));
         }
