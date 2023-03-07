@@ -6,7 +6,8 @@ public class GameController : MonoBehaviour
 {
     public static GameController instance;
     public SpawnEnemy spawnEnemy;
-    public Weapon weapon;
+    public SpawnWeapon spawnWeapon;
+    public SpawnItem spawnItem;
     public Player player;
 
     public float level = 0;
@@ -20,6 +21,11 @@ public class GameController : MonoBehaviour
 
     public float gameTime;
     private float upgradeCount = 5;
+
+    public bool isPause = false;
+    public bool isLevelUp = false;
+    public GameObject pauseUI;
+    public GameObject levelUpUI;
     void Awake() => instance = this;
 
     void Update()
@@ -42,7 +48,19 @@ public class GameController : MonoBehaviour
         {
             playerCurEXP = playerCurEXP - playerMaxEXP;
             playerLevel++;
+            isLevelUp = true;
             playerMaxEXP += (playerMaxEXP / 2);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape) && isPause)
+        {
+            isPause = false;
+            Time.timeScale = 1;
+        }
+        else if (Input.GetKeyDown(KeyCode.Escape) && !isPause)
+        {
+            isPause = true;
+            Time.timeScale = 0;
         }
     }
 }

@@ -84,7 +84,7 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
-    public void GetDamage(float dmg)
+    public void GetDamage(float dmg, Transform transform)
     {
         if (!isLive)
             return;
@@ -128,7 +128,7 @@ public abstract class Enemy : MonoBehaviour
             idx = 2;
         }
 
-        item = GameController.instance.spawnEnemy.SpawnItem(idx, ed.exp);
+        item = GameController.instance.spawnItem.SpawnAct(idx, ed.exp);
         item.transform.position = gameObject.transform.position;
         item.GetComponent<Item>().exp = ed.exp;
     }

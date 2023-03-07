@@ -1,10 +1,10 @@
 플레이어 레벨업
--> 에너미, 플레이어, 아이템, 불렛 정지 (GameController에 bool 함수 추가로 조정)
--> 레벨업 UI 활성 (?)
+-> 에너미, 플레이어, 아이템, 불렛 정지 (GameController에 bool 함수 추가로 조정) time.scale(0)
+-> 레벨업 UI 활성 (?) .setactive => 한 캔버스, 스크립트 내에서
 -> 레벨업 선택 (? => random => onButtonClick) => 만약 남은 레벨업 데이터가 3개가 안된다면?
--> 선택 데이터 반영(저장된 정보(Dictionary or List) + Switch문)
+-> 선택 데이터 반영(저장된 정보(Dictionary or List) + Switch문) => Dictionary만 있어도 충분할 듯
 -> 레벨업 UI 비활성 (?)
--> 에너미, 플레이어, 아이템, 불렛 활성 (GameController에 bool 함수 추가로 조정)
+-> 에너미, 플레이어, 아이템, 불렛 활성 (GameController에 bool 함수 추가로 조정) time.scale(1)
 
 레벨업 UI
 -> 3가지 선택지
@@ -19,10 +19,10 @@ UI예상도
 
 레벨업 요소(현재 구현된 요소만)
 player : speed, Hp 증가
-item : target - transfrom distance 증가
+item : 획득 범위 증가
 weapon : damage, delaytime + @ 증가
 
-특수 요소
+특수 요소(포폴용)
 enemy : speed 감소(일정 시간), Hp 1로 감소(일정 시간), move 정지(일정 시간)
 
 궁금한 점
@@ -31,10 +31,10 @@ enemy : speed 감소(일정 시간), Hp 1로 감소(일정 시간), move 정지(
 3. 레벨업 UI 활성/비활성 방법
 --------------------------------------------------------------
 플레이어 인포 = 퍼즈
--> 키버튼 입력(input.getbuttondown ("ESC"))
+-> 키버튼 입력(input.getkeydown (keycode.ESC)) + bool 
 -> 에너미, 플레이어, 아이템, 불렛 정지 (GameController에 bool 함수 추가로 조정)
 -> 플레이어 인포 UI 활성 (?)
--> 키버튼 입력(input.getbuttondown ("ESC"))
+-> 키버튼 입력
 -> 플레이어 인포 UI 비활성 (?)
 -> 에너미, 플레이어, 아이템, 불렛 활성 (GameController에 bool 함수 추가로 조정)
 
@@ -55,20 +55,20 @@ Pause
 -----------------------
 press "활성화버튼명" continue
 
+=> 해결
 --------------------------------------------------------------
 개선해야할 점
 1. SpawnEnemy에 현재 있는 아이템 생성 분리
 1-1 Spawn을 추상화 가능하다면 enemy, weapon, item 가능? => 솔직히 가능한데 귀찮다
-2. 게임 시작 때 player의 target이 없어 발생하는 오류 => 굳이?
-3. enemy hit 모션과 함께 뒤로 밀려나는 모습 구현 => 현재 잠시 자리에 멈추는 걸로 구현
-4. 첫 exp item을 먹었을 때 경험치가 증가하지 않는 현상 => 값은 증가하는데 이미지가 못 따라감
+2. 게임 시작 때 player의 target이 없어 발생하는 오류 => 해결
+3. enemy hit 모션과 함께 뒤로 밀려나는 모습 구현 => 현재 잠시 자리에 멈추는 걸로 구현 => bullet에 빈 게임오브젝트 추가 후 그 게임오브젝트 포지션을 enemy에 넘기는 방식 시도 or Rigidbody2D 추가
 
 추가할 것
 1. item (Heal(5% 확률), Magnet(5%확률) (임시))
 2. weapon
 2-1 플레이어 진행 방향으로만 나가는 무기 (player.inputvec 활용하면 쉬울 듯)
-2-2 플레이어 주변 빙빙 도는 무기 (?)
-2-3 플레이어 주변에 랜덤하게 떨어지는 무기 (player.position +- 10 으로 계산하면 될 듯)
+2-2 플레이어 주변 빙빙 도는 무기 (Rotate + 빈 게임오브젝트 여러개를 만들고 활성/비활성화 하는 방식으로)
+2-3 플레이어 주변에 랜덤하게 떨어지는 무기 (rand(player.position +- 10) 으로 계산하면 될 듯)
 
 포폴용 추가사항(굳이?)
 1. 플레이어 다양성(스탯, 첫 무기에서 차이점)
