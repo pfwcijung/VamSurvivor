@@ -113,21 +113,23 @@ public abstract class Enemy : MonoBehaviour
     public void DropItems()
     {
         GameObject item;
+        int idx;
+
         if (ed.exp < 50)
         {
-            item = GameController.instance.spawnEnemy.SpawnItem(0, ed.exp);
-            item.transform.position = gameObject.transform.position;
+            idx = 0;
         }
         else if (ed.exp > 50 && ed.exp < 100)
         {
-            item = GameController.instance.spawnEnemy.SpawnItem(1, ed.exp);
-            item.transform.position = gameObject.transform.position;
+            idx = 1;
         }
         else
         {
-            item = GameController.instance.spawnEnemy.SpawnItem(2, ed.exp);
-            item.transform.position = gameObject.transform.position;
+            idx = 2;
         }
+
+        item = GameController.instance.spawnEnemy.SpawnItem(idx, ed.exp);
+        item.transform.position = gameObject.transform.position;
         item.GetComponent<Item>().exp = ed.exp;
     }
 }
