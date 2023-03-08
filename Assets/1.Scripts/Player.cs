@@ -17,7 +17,8 @@ public class Player : MonoBehaviour
     public bool isLive = true;
 
     public float speed = 3f;
-    float delayTime = 0f;
+    float delayTimeShooting = 0f;
+    float delayTimeThrow = 0f;
 
     void Start()
     {
@@ -33,39 +34,15 @@ public class Player : MonoBehaviour
         if (!isLive)
             return;
 
-        inputVec.x = Input.GetAxisRaw("Horizontal") * Time.deltaTime * speed;
-        inputVec.y = Input.GetAxisRaw("Vertical") * Time.deltaTime * speed;
-
-        transform.position = new Vector2(transform.position.x + inputVec.x, transform.position.y + inputVec.y);
-
-        if (inputVec.x != 0 || inputVec.y != 0) 
-        {
-            anim.SetTrigger("Move");
-
-            if (inputVec.x <= 0)
-                sprite.flipX = true;
-            else
-                sprite.flipX = false;
-        }
-        else
-        {
-            anim.SetTrigger("Idle");
-        }
+        PlayerMove();
 
         nearstTarget = FindNearestTarget();
 
-        if (nearstTarget == null)
-            return;
-        else
-        {
-            delayTime += Time.deltaTime;
-            if (delayTime > .3f - (0.01 * GameController.instance.playerLevel))
-            {
-                GameObject weapon = GameController.instance.spawnWeapon.SpawnAct(0);
-                weapon.transform.position = transform.position;
-                delayTime = 0;
-            }
-        }
+        if (nearstTarget != null)
+            ShootingBullet();
+
+        if (inputVec.x != 0 || inputVec.y != 0)
+            ThrowBullet();
     }
 
     public void GetDamage(float dmg)
@@ -96,5 +73,46 @@ public class Player : MonoBehaviour
             return null;
         else
             return neareastObj;
+    }
+    public void PlayerMove()
+    {
+        inputVec.x = Input.GetAxisRaw("Horizontal") * Time.deltaTime * speed;
+        inputVec.y = Input.GetAxisRaw("Vertical") * Time.deltaTime * speed;
+
+        transform.position = new Vector2(transform.position.x + inputVec.x, transform.position.y + inputVec.y);
+
+        if (inputVec.x != 0 || inputVec.y != 0)
+        {
+            anim.SetTrigger("Move");
+
+            if (inputVec.x <= 0)
+                sprite.flipX = true;
+            else
+                sprite.flipX = false;
+        }
+        else
+        {
+            anim.SetTrigger("Idle");
+        }
+    }
+    public void ShootingBullet()
+    {
+        delayTimeShooting += Time.deltaTime;
+        if (delayTimeShooting > .3f - (0.01 * GameController.instance.playerLevel))
+        {
+            GameObject weapon = GameController.instance.spawnWeapon.SpawnAct(0);
+            weapon.transform.position = transform.position;
+            delayTimeShooting = 0;
+        }
+    }
+    public void ThrowBullet()
+    {
+        delayTimeThrow += Time.deltaTime;
+        if (delayTimeThrow > .5f - (0.01 * GameController.instance.playerLevel))
+        {
+            GameObject weapon = GameController.instance.spawnWeapon.SpawnAct(1);
+            weapon.transform.position = transform.position;
+            delayTimeThrow = 0;
+        }
     }
 }
