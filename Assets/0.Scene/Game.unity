@@ -5024,7 +5024,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 619094282}
         m_TargetAssemblyTypeName: UIController, Assembly-CSharp
-        m_MethodName: onButtonClick
+        m_MethodName: onButtonClick_3
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5097,12 +5097,14 @@ MonoBehaviour:
   spawnEnemy: {fileID: 20146165}
   spawnWeapon: {fileID: 1559336596}
   spawnItem: {fileID: 1791837002}
+  upData: {fileID: 1820678497}
   player: {fileID: 740731412}
   level: 0
   enemyUpgrade: 1
   playerLevel: 0
   playerCurEXP: 0
   playerMaxEXP: 100
+  itemArea: 1
   killCount: 0
   gameTime: 0
   isPause: 0
@@ -5210,8 +5212,14 @@ MonoBehaviour:
   level: {fileID: 965384465}
   killcount: {fileID: 1861598371}
   upgradeImage_1: {fileID: 0}
+  upgradeName_1: {fileID: 0}
+  upgradeData_1: {fileID: 0}
   upgradeImage_2: {fileID: 0}
+  upgradeName_2: {fileID: 0}
+  upgradeData_2: {fileID: 0}
   upgradeImage_3: {fileID: 0}
+  upgradeName_3: {fileID: 0}
+  upgradeData_3: {fileID: 0}
   pauseInfo: {fileID: 1005077513}
   playerInfo: {fileID: 120275101}
   weaponInfo: {fileID: 2132523741}
@@ -5314,7 +5322,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &652176800
 GameObject:
@@ -5440,7 +5448,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 619094282}
         m_TargetAssemblyTypeName: UIController, Assembly-CSharp
-        m_MethodName: onButtonClick
+        m_MethodName: onButtonClick_1
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5674,7 +5682,7 @@ Transform:
   - {fileID: 1090317958}
   - {fileID: 1314698748}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &740731410
 Rigidbody2D:
@@ -5727,10 +5735,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputVec: {x: 0, y: 0, z: 0}
   nearstTarget: {fileID: 0}
+  isLive: 1
   curHp: 0
   maxHp: 0
-  isLive: 1
   speed: 3
+  delayTimeRotate: 0
 --- !u!95 &740731413
 Animator:
   serializedVersion: 5
@@ -15370,7 +15379,7 @@ Transform:
   - {fileID: 1125055481}
   - {fileID: 103912317}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1228260487
 GameObject:
@@ -15572,7 +15581,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 619094282}
         m_TargetAssemblyTypeName: UIController, Assembly-CSharp
-        m_MethodName: onButtonClick
+        m_MethodName: onButtonClick_2
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -15971,6 +15980,9 @@ MonoBehaviour:
   weaponPrefabs:
   - {fileID: 4035468551322683121, guid: e4d1ce3f2f0d8024f9067742ebe68daa, type: 3}
   - {fileID: 548531324173722100, guid: 0cc134485ef4f4a42bd4ab48d5939895, type: 3}
+  - {fileID: 145680718207539498, guid: 643af2514c186bc4e93b42995d6b9e7b, type: 3}
+  - {fileID: 5778254891040402406, guid: fc2fb16646e417d45bd89b137a8eb260, type: 3}
+  boomArea: {fileID: 0}
 --- !u!1 &1573593336
 GameObject:
   m_ObjectHideFlags: 0
@@ -16523,6 +16535,73 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1820678496
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1820678498}
+  - component: {fileID: 1820678497}
+  m_Layer: 0
+  m_Name: LevelUpData
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1820678497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1820678496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9863bb88d3de8eb449e6bf80ea81cfaa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hpImage: {fileID: 0}
+  expImage: {fileID: 0}
+  time: {fileID: 0}
+  level: {fileID: 0}
+  killcount: {fileID: 0}
+  upgradeImage_1: {fileID: 0}
+  upgradeName_1: {fileID: 0}
+  upgradeData_1: {fileID: 0}
+  upgradeImage_2: {fileID: 0}
+  upgradeName_2: {fileID: 0}
+  upgradeData_2: {fileID: 0}
+  upgradeImage_3: {fileID: 0}
+  upgradeName_3: {fileID: 0}
+  upgradeData_3: {fileID: 0}
+  pauseInfo: {fileID: 0}
+  playerInfo: {fileID: 0}
+  weaponInfo: {fileID: 0}
+  gameInfo: {fileID: 0}
+  exitInfo: {fileID: 0}
+  dataType: 0
+  dataName: 
+  dataDamage: 0
+  dataDelay: 0
+--- !u!4 &1820678498
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1820678496}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1823332296
 GameObject:
   m_ObjectHideFlags: 0
@@ -17070,7 +17149,7 @@ RectTransform:
   - {fileID: 344944905}
   - {fileID: 1948371723}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}

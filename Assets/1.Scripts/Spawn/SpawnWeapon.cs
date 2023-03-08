@@ -8,6 +8,8 @@ public class SpawnWeapon : MonoBehaviour
 
     [SerializeField] List<GameObject>[] weapons;
 
+    public GameObject boomArea;
+
     void Start()
     {
         weapons = new List<GameObject>[weaponPrefabs.Length];

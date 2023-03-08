@@ -84,7 +84,7 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
-    public void GetDamage(float dmg, Transform transform)
+    public void GetDamage(float dmg)
     {
         if (!isLive)
             return;

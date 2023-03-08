@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public abstract class Weapon : MonoBehaviour
@@ -26,19 +28,40 @@ public abstract class Weapon : MonoBehaviour
         {
             case "ShootingBullet":
                 {
-                    transform.Translate(new Vector2(0, Time.deltaTime * speed));
-
                     destroyTime += Time.deltaTime;
+                    transform.Translate(Vector2.up);
+
                     if (destroyTime >= 7f)
                         Destroy(gameObject);
                     break;
                 }
             case "ThrowBullet":
                 {
-                    transform.Translate(Vector2.up);
                     destroyTime += Time.deltaTime;
+                    transform.Translate(Vector2.up);
                     if (destroyTime >= 7f)
                         Destroy(gameObject);
+                    break;
+                }
+            /*case "RotateBullet":
+                {
+                    GameController.instance.player.delayTimeRotate += Time.deltaTime;
+                    transform.Rotate(Vector3.back * 100f * Time.deltaTime);
+                    if (GameController.instance.player.delayTimeRotate >= 3f)
+                    {
+                        Destroy(gameObject);
+                        GameController.instance.player.delayTimeRotate = 0;
+                    }
+                    break;
+                }*/
+            case "BoomBullet":
+                {
+                    destroyTime += Time.deltaTime;
+                    if (destroyTime >= 2f)
+                    {
+                        GetComponent<CircleCollider2D>().enabled = true;
+                        Destroy(gameObject);
+                    }
                     break;
                 }
             default:
@@ -57,8 +80,9 @@ public abstract class Weapon : MonoBehaviour
     {
         if (collision.CompareTag("enemy"))
         {
+            collision.GetComponent<Enemy>().GetDamage(damage);
+
             Destroy(gameObject);
-            collision.GetComponent<Enemy>().GetDamage(damage, transform);
         }
     }
 }

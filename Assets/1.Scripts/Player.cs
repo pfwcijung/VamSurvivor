@@ -12,14 +12,16 @@ public class Player : MonoBehaviour
     SpriteRenderer sprite;
     Animator anim;
 
+    public bool isLive = true;
     public float curHp = 0f;
     public float maxHp = 0;
-    public bool isLive = true;
-
     public float speed = 3f;
+
     float delayTimeShooting = 0f;
     float delayTimeThrow = 0f;
-
+    public float delayTimeRotate = 0f;
+    float delayTimeBoom = 0f;
+    float countRotate;
     void Start()
     {
         sprite = GetComponent<SpriteRenderer>();
@@ -43,6 +45,17 @@ public class Player : MonoBehaviour
 
         if (inputVec.x != 0 || inputVec.y != 0)
             ThrowBullet();
+
+        //회전무기 다시
+        /*
+        if(countRotate>0 && delayTimeRotate == 0)
+        {
+            for (int i = 0; i < countRotate; i++)
+                RotateBullet(i);
+        }
+        */
+        if (true)
+            BoomBullet();
     }
 
     public void GetDamage(float dmg)
@@ -112,6 +125,26 @@ public class Player : MonoBehaviour
             GameObject weapon = GameController.instance.spawnWeapon.SpawnAct(1);
             weapon.transform.position = transform.position;
             delayTimeThrow = 0;
+        }
+    }
+    public void RotateBullet(int index)
+    {        
+        Transform weapon = GameController.instance.spawnWeapon.SpawnAct(2).transform;
+
+        weapon.localPosition = transform.position + new Vector3(0, 1, 10);
+        weapon.localRotation = Quaternion.identity;
+
+        Vector3 rotateVec = Vector3.forward * 360 * index / countRotate;
+        weapon.Rotate(rotateVec);
+        weapon.Translate(weapon.up * 1.5f, Space.World);
+    }
+    public void BoomBullet()
+    {
+        delayTimeBoom += Time.deltaTime;
+        if (delayTimeBoom >= 1f)
+        {
+            Transform weapon = GameController.instance.spawnWeapon.SpawnAct(3).transform;
+            delayTimeBoom = 0f;
         }
     }
 }

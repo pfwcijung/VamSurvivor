@@ -17,7 +17,7 @@ public class Item : MonoBehaviour
         if (!GameController.instance.player.isLive)
             return;
 
-        if (Vector2.Distance(target.transform.position, transform.position) <= 1)
+        if (Vector2.Distance(target.transform.position, transform.position) <= GameController.instance.itemArea)
         {
 
             Vector2 vec = transform.position - target.transform.position;

@@ -4,6 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+public struct UpData
+{
+    public int dataType;
+    public string dataName;
+    public float dataDamage;
+    public float dataDelay;
+}
+
 public class UIController : MonoBehaviour
 {
     [Header("#Base UI")]
@@ -13,9 +21,16 @@ public class UIController : MonoBehaviour
     [SerializeField] private TMP_Text level;
     [SerializeField] private TMP_Text killcount;
     [Header("#LevelUp UI")]
-    [SerializeField] private Image upgradeImage_1;
+    /*[SerializeField] private Image upgradeImage_1;
+    [SerializeField] private TMP_Text upgradeName_1;
+    [SerializeField] private TMP_Text upgradeData_1;
     [SerializeField] private Image upgradeImage_2;
+    [SerializeField] private TMP_Text upgradeName_2;
+    [SerializeField] private TMP_Text upgradeData_2;
     [SerializeField] private Image upgradeImage_3;
+    [SerializeField] private TMP_Text upgradeName_3;
+    [SerializeField] private TMP_Text upgradeData_3;
+    */
     [Header("#Pause UI")]
     [SerializeField] private TMP_Text pauseInfo;
     [SerializeField] private TMP_Text playerInfo;
@@ -56,13 +71,7 @@ public class UIController : MonoBehaviour
         {
             GameController.instance.pauseUI.SetActive(true);
 
-            pauseInfo.text = string.Format("일시 정지");
-            playerInfo.text = string.Format
-                ($"플레이어 정보\n체력 :: {GameController.instance.player.curHp}/{GameController.instance.player.maxHp}" +
-                $"\n속도 :: {GameController.instance.player.speed}m/s\n줍기 범위 :: {GameController.instance.player.speed}m");//줍기 범위 임시
-            weaponInfo.text = string.Format($"무기(이름) 레벨 {GameController.instance.playerLevel}");
-            gameInfo.text = string.Format($"플레이 시간 :: {min:00}:{sec:00}\n킬 수 :: {GameController.instance.killCount}");
-            exitInfo.text = string.Format("ESC를 눌러 계속합니다.");
+            PauseUI();
         }
         else
         {
@@ -76,7 +85,30 @@ public class UIController : MonoBehaviour
         }
     }
 
-    public void onButtonClick()
+    public void PauseUI()
+    {
+        pauseInfo.text = string.Format("일시 정지");
+        playerInfo.text = string.Format
+            ($"플레이어 정보\n체력 :: {GameController.instance.player.curHp}/{GameController.instance.player.maxHp}" +
+            $"\n속도 :: {GameController.instance.player.speed}m/s\n줍기 범위 :: {GameController.instance.player.speed}m");//줍기 범위 임시
+        weaponInfo.text = string.Format($"무기(이름) 레벨 {GameController.instance.playerLevel}");
+        gameInfo.text = string.Format($"플레이 시간 :: {min:00}:{sec:00}\n킬 수 :: {GameController.instance.killCount}");
+        exitInfo.text = string.Format("ESC를 눌러 계속합니다.");
+    }
+    public void onButtonClick_1()
+    {
+        Time.timeScale = 1;
+        GameController.instance.isLevelUp = false;
+        GameController.instance.levelUpUI.SetActive(false);
+        
+    }
+    public void onButtonClick_2()
+    {
+        Time.timeScale = 1;
+        GameController.instance.isLevelUp = false;
+        GameController.instance.levelUpUI.SetActive(false);
+    }
+    public void onButtonClick_3()
     {
         Time.timeScale = 1;
         GameController.instance.isLevelUp = false;

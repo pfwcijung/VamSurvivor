@@ -10,7 +10,7 @@
 -> 3가지 선택지
 -> 들어가야할 데이터?? dictionary?? Random switch??
 
-UI예상도
+UI예상도 => 구현
 
 레벨업!!
 [이미지] 이동속도 증가 (현재 플레이어 스탯 => 적용 스탯)
@@ -25,10 +25,15 @@ weapon : damage, delaytime + @ 증가
 특수 요소(포폴용)
 enemy : speed 감소(일정 시간), Hp 1로 감소(일정 시간), move 정지(일정 시간)
 
-궁금한 점
-1. 레벨업 데이터 관리 방법(Dictionary or List)
-2. UI스크립트(UIcontroller에서 관리해야 할지, 새로운 스크립트, 새로운 캔버스를 만들어야 할지)
-3. 레벨업 UI 활성/비활성 방법
+***신규***
+Gamecontroller(int weapon1_lv = 1, weapon2_lv = 2...)
+-> Dictionary<index, name>
+-> random.range(0, dic.length)
+-> for(int i=0,i<3;i++) {UIcontroller.SetButtonData(i, dic.name)}(?)
+-> UIcontroller(buttonClick(int index or string name))(?)
+-> Gamecontroller(weapon1_lv++)
+-> weapon1(damage + 5 * gamecontroller.instance.weapon1_lv)
+
 --------------------------------------------------------------
 플레이어 인포 = 퍼즈
 -> 키버튼 입력(input.getkeydown (keycode.ESC)) + bool 
@@ -55,7 +60,7 @@ Pause
 -----------------------
 press "활성화버튼명" continue
 
-=> 해결
+=> 구현
 --------------------------------------------------------------
 개선해야할 점
 1. SpawnEnemy에 현재 있는 아이템 생성 분리
@@ -66,9 +71,12 @@ press "활성화버튼명" continue
 추가할 것
 1. item (Heal(5% 확률), Magnet(5%확률) (임시))
 2. weapon
-2-1 플레이어 진행 방향으로만 나가는 무기 (player.inputvec 활용하면 쉬울 듯)
-2-2 플레이어 주변 빙빙 도는 무기 (Rotate + 빈 게임오브젝트 여러개를 만들고 활성/비활성화 하는 방식으로)
-2-3 플레이어 주변에 랜덤하게 떨어지는 무기 (rand(player.position +- 10) 으로 계산하면 될 듯)
+2-1 플레이어 진행 방향으로만 나가는 무기 (player.inputvec 활용하면 쉬울 듯) => 구현
+2-2 플레이어 주변 빙빙 도는 무기 (Rotate + 빈 게임오브젝트 여러개를 만들고 활성/비활성화 하는 방식으로) => 실패
+2-3 플레이어 주변에 랜덤하게 떨어지는 무기 (rand(player.position +- 10) 으로 계산하면 될 듯) => 구현
+
+***신규***
+2-3 무기의 fillamount 설정하는 방법, 주변 하얀 원을 타이머 같이 이용하고 싶다.
 
 포폴용 추가사항(굳이?)
 1. 플레이어 다양성(스탯, 첫 무기에서 차이점)
