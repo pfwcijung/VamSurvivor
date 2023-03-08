@@ -30,9 +30,26 @@ Gamecontroller(int weapon1_lv = 1, weapon2_lv = 2...)
 -> Dictionary<index, name>
 -> random.range(0, dic.length)
 -> for(int i=0,i<3;i++) {UIcontroller.SetButtonData(i, dic.name)}(?)
+-> 랜덤값 중복 방지 리스트[3]으로 값 들어갔는지 확인
+-> UIcontroller(Image, Data) (?)
+	UIcontroller.LevelupUI(index or name)
+	switch(index)
+		case 0
+		if(0번 무기가 비활성화 중이면)
+		Image
+		text = {name} 무기를 획득합니다
+		else
+		Image = index image(?)
+		text = {name}의 데미지 {gamecontroller.ins.weapon1_lv값} 증가, 발사 지연 시간 {time}감소
+		case 4
+		Image = index image
+		text = 현재 체력을 최대 체력의 10% 회복하고 최대 체력을 {gamecontroller.ins.hp}만큼 증가합니다
 -> UIcontroller(buttonClick(int index or string name))(?)
 -> Gamecontroller(weapon1_lv++)
 -> weapon1(damage + 5 * gamecontroller.instance.weapon1_lv)
+
+1. Image 데이터 변경하는 방법 -> 리스트를 초기 선언 해 미리 이미지 데이터를 다 넣어둔다?
+2. 버튼을 눌렀을 때 그 버튼에 할당된 데이터를 보내는 방법 -> onbuttonclick(index)하고 switch~case?
 
 --------------------------------------------------------------
 플레이어 인포 = 퍼즈

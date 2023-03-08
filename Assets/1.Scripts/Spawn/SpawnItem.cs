@@ -20,7 +20,6 @@ public class SpawnItem : MonoBehaviour
     public GameObject SpawnAct(int index, float exp)
     {
         GameObject item = Instantiate(itemObj[index], transform);
-
         return item;
     }
 }

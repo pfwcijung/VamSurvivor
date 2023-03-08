@@ -112,24 +112,41 @@ public abstract class Enemy : MonoBehaviour
 
     public void DropItems()
     {
-        GameObject item;
+        GameObject items;
         int idx;
+        int rand = Random.Range(0, 100);
 
-        if (ed.exp < 50)
+        if(rand < 90)
         {
-            idx = 0;
-        }
-        else if (ed.exp > 50 && ed.exp < 100)
-        {
-            idx = 1;
+            if (ed.exp < 50)
+            {
+                idx = 0;
+            }
+            else if (ed.exp > 50 && ed.exp < 100)
+            {
+                idx = 1;
+            }
+            else
+            {
+                idx = 2;
+            }
         }
         else
         {
-            idx = 2;
+            if (rand % 2 == 0)
+            {
+                idx = 3;
+            }
+            else
+            {
+                idx = 4;
+            }
         }
 
-        item = GameController.instance.spawnItem.SpawnAct(idx, ed.exp);
-        item.transform.position = gameObject.transform.position;
-        item.GetComponent<Item>().exp = ed.exp;
+
+
+        items = GameController.instance.spawnItem.SpawnAct(idx, ed.exp);
+        items.transform.position = gameObject.transform.position;
+        //GetComponent<Exp>().exp = ed.exp;
     }
 }

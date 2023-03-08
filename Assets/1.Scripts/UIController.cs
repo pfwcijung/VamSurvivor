@@ -20,17 +20,15 @@ public class UIController : MonoBehaviour
     [SerializeField] private TMP_Text time;
     [SerializeField] private TMP_Text level;
     [SerializeField] private TMP_Text killcount;
+
     [Header("#LevelUp UI")]
-    /*[SerializeField] private Image upgradeImage_1;
-    [SerializeField] private TMP_Text upgradeName_1;
+    [SerializeField] private Image upgradeImage_1;
     [SerializeField] private TMP_Text upgradeData_1;
     [SerializeField] private Image upgradeImage_2;
-    [SerializeField] private TMP_Text upgradeName_2;
     [SerializeField] private TMP_Text upgradeData_2;
     [SerializeField] private Image upgradeImage_3;
-    [SerializeField] private TMP_Text upgradeName_3;
     [SerializeField] private TMP_Text upgradeData_3;
-    */
+
     [Header("#Pause UI")]
     [SerializeField] private TMP_Text pauseInfo;
     [SerializeField] private TMP_Text playerInfo;
@@ -41,6 +39,7 @@ public class UIController : MonoBehaviour
 
     float sec = 0;
     float min = 0;
+
     void Start()
     {
         expImage.fillAmount = 0;
@@ -95,6 +94,19 @@ public class UIController : MonoBehaviour
         gameInfo.text = string.Format($"플레이 시간 :: {min:00}:{sec:00}\n킬 수 :: {GameController.instance.killCount}");
         exitInfo.text = string.Format("ESC를 눌러 계속합니다.");
     }
+
+    public void LevelupUI(int index)
+    {
+        switch (index)
+        {
+            case 0:
+                
+                break;
+            default:
+                break;
+        }
+    }
+
     public void onButtonClick_1()
     {
         Time.timeScale = 1;
