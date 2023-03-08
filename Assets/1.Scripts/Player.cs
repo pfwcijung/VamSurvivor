@@ -59,21 +59,6 @@ public class Player : MonoBehaviour
             transform.tag = "Untagged";
         }
     }
-
-    public GameObject FindNearestTarget()
-    {
-        var objects = GameObject.FindGameObjectsWithTag("enemy").ToList();
-
-        if (objects.Count == 0)
-            return null;
-
-        var neareastObj = objects.OrderBy(obj => { return Vector3.Distance(transform.position, obj.transform.position); }).FirstOrDefault();
-
-        if (Vector2.Distance(neareastObj.transform.position, transform.position) >= 7)
-            return null;
-        else
-            return neareastObj;
-    }
     public void PlayerMove()
     {
         inputVec.x = Input.GetAxisRaw("Horizontal") * Time.deltaTime * speed;
@@ -94,6 +79,20 @@ public class Player : MonoBehaviour
         {
             anim.SetTrigger("Idle");
         }
+    }
+    public GameObject FindNearestTarget()
+    {
+        var objects = GameObject.FindGameObjectsWithTag("enemy").ToList();
+
+        if (objects.Count == 0)
+            return null;
+
+        var neareastObj = objects.OrderBy(obj => { return Vector3.Distance(transform.position, obj.transform.position); }).FirstOrDefault();
+
+        if (Vector2.Distance(neareastObj.transform.position, transform.position) >= 7)
+            return null;
+        else
+            return neareastObj;
     }
     public void ShootingBullet()
     {
