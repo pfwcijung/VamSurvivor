@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class Weapon : MonoBehaviour
 {
@@ -15,11 +16,13 @@ public abstract class Weapon : MonoBehaviour
     [SerializeField]
     public float speed;
 
+    public Image timerImage;
+
     float destroyTime = 0f;
 
     void Start()
     {
-
+        timerImage.fillAmount = 0f;
     }
 
     void Update()
@@ -57,9 +60,14 @@ public abstract class Weapon : MonoBehaviour
             case "BoomBullet":
                 {
                     destroyTime += Time.deltaTime;
-                    if (destroyTime >= 2f)
+                    timerImage.fillAmount = destroyTime / 2f;
+                    if (timerImage.fillAmount >= 1)
                     {
                         GetComponent<CircleCollider2D>().enabled = true;
+                    }
+
+                    if (destroyTime > 5f)
+                    {
                         Destroy(gameObject);
                     }
                     break;

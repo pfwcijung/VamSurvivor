@@ -116,21 +116,18 @@ public abstract class Enemy : MonoBehaviour
         int idx;
         int rand = Random.Range(0, 100);
 
-        if(rand < 90)
+        if(rand < 80)
         {
-            if (ed.exp < 50)
-            {
-                idx = 0;
-            }
-            else if (ed.exp > 50 && ed.exp < 100)
-            {
-                idx = 1;
-            }
-            else
-            {
-                idx = 2;
-            }
+            idx = 0;
         }
+        else if (rand >= 80 && rand < 88)
+        {
+            idx = 1;
+        }
+        else if (rand >= 88 && rand < 90)
+        {
+            idx = 2;
+        }        
         else
         {
             if (rand % 2 == 0)
@@ -143,10 +140,7 @@ public abstract class Enemy : MonoBehaviour
             }
         }
 
-
-
         items = GameController.instance.spawnItem.SpawnAct(idx, ed.exp);
         items.transform.position = gameObject.transform.position;
-        //GetComponent<Exp>().exp = ed.exp;
     }
 }

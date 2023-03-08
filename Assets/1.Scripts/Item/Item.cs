@@ -5,12 +5,12 @@ using static UnityEngine.GraphicsBuffer;
 
 public abstract class Item : MonoBehaviour
 {
-    GameObject target;
+    protected GameObject target;
+
     void Start()
     {
         target = GameObject.FindGameObjectWithTag("player");
     }
-
     void Update()
     {
         if (!GameController.instance.player.isLive)

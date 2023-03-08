@@ -109,6 +109,7 @@ public class Player : MonoBehaviour
     }
     public void ShootingBullet()
     {
+        return;
         delayTimeShooting += Time.deltaTime;
         if (delayTimeShooting > .3f - (0.01 * GameController.instance.playerLevel))
         {
@@ -119,6 +120,7 @@ public class Player : MonoBehaviour
     }
     public void ThrowBullet()
     {
+        return;
         delayTimeThrow += Time.deltaTime;
         if (delayTimeThrow > .5f - (0.01 * GameController.instance.playerLevel))
         {
@@ -141,7 +143,7 @@ public class Player : MonoBehaviour
     public void BoomBullet()
     {
         delayTimeBoom += Time.deltaTime;
-        if (delayTimeBoom >= 1f)
+        if (delayTimeBoom >= 2f)
         {
             Transform weapon = GameController.instance.spawnWeapon.SpawnAct(3).transform;
             delayTimeBoom = 0f;

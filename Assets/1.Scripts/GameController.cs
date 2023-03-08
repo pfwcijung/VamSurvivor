@@ -20,6 +20,9 @@ public class GameController : MonoBehaviour
     public float playerCurEXP = 0;
     public float playerMaxEXP = 100;
     public float itemArea = 1f;
+    public bool magnetActive = false;
+    float temp = 0;
+    float timer = 0;
     public float killCount = 0;
 
     //게임 시간
@@ -53,8 +56,29 @@ public class GameController : MonoBehaviour
             playerCurEXP = playerCurEXP - playerMaxEXP;
             playerLevel++;
             isLevelUp = true;
+
             playerMaxEXP += (playerMaxEXP / 2);
         }
+
+        if(player.curHp > player.maxHp)
+        {
+            player.curHp = player.maxHp;
+        }
+
+        if (magnetActive)
+        {
+            timer += Time.deltaTime;
+            itemArea = 10f;
+
+            if (timer > 1f)
+            {
+                itemArea = temp;
+                magnetActive = false;
+                timer = 0;
+            }
+        }
+        else
+            storeItemAreaData();
 
         if (Input.GetKeyDown(KeyCode.Escape) && isPause)
         {
@@ -66,5 +90,13 @@ public class GameController : MonoBehaviour
             isPause = true;
             Time.timeScale = 0;
         }
+    }
+
+    void storeItemAreaData()
+    {
+        if (magnetActive)
+            return;
+
+        temp = itemArea;
     }
 }

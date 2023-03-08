@@ -12,8 +12,16 @@ public struct UpData
     public float dataDelay;
 }
 
+public struct LevelImage
+{
+    public Image Image;
+    public TMP_Text text;
+}
+
 public class UIController : MonoBehaviour
 {
+    List<LevelImage> ImageList = new List<LevelImage>();
+
     [Header("#Base UI")]
     [SerializeField] private Image hpImage;
     [SerializeField] private Image expImage;
