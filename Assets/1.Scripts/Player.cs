@@ -13,22 +13,22 @@ public class Player : MonoBehaviour
     Animator anim;
 
     public bool isLive = true;
-    public float curHp = 0f;
+    public float curHp = 0;
     public float maxHp = 0;
-    public float speed = 3f;
+    public float speed = 0;
 
     float delayTimeShooting = 0f;
     float delayTimeThrow = 0f;
     public float delayTimeRotate = 0f;
     float delayTimeBoom = 0f;
-    float countRotate;
     void Start()
     {
         sprite = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
         anim.SetTrigger("Idle");
 
-        maxHp = curHp = 100f;
+        maxHp = curHp = GameController.instance.setMaxHp + 100;
+        speed = GameController.instance.setSpeed + 3;
     }
 
     void Update()
@@ -36,14 +36,17 @@ public class Player : MonoBehaviour
         if (!isLive)
             return;
 
+        if (curHp >= maxHp)
+            curHp = maxHp;
+
         PlayerMove();
 
         nearstTarget = FindNearestTarget();
 
-        if (nearstTarget != null)
+        if (nearstTarget != null && GameController.instance.ShootingActive)
             ShootingBullet();
 
-        if (inputVec.x != 0 || inputVec.y != 0)
+        if ((inputVec.x != 0 || inputVec.y != 0) && GameController.instance.ThrowActive)
             ThrowBullet();
 
         //회전무기 다시
@@ -54,7 +57,7 @@ public class Player : MonoBehaviour
                 RotateBullet(i);
         }
         */
-        if (true)
+        if (GameController.instance.BoomActive)
             BoomBullet();
     }
 
@@ -109,9 +112,8 @@ public class Player : MonoBehaviour
     }
     public void ShootingBullet()
     {
-        return;
         delayTimeShooting += Time.deltaTime;
-        if (delayTimeShooting > .3f - (0.01 * GameController.instance.playerLevel))
+        if (delayTimeShooting > .3f - GameController.instance.ShootingDelay)
         {
             GameObject weapon = GameController.instance.spawnWeapon.SpawnAct(0);
             weapon.transform.position = transform.position;
@@ -120,16 +122,15 @@ public class Player : MonoBehaviour
     }
     public void ThrowBullet()
     {
-        return;
         delayTimeThrow += Time.deltaTime;
-        if (delayTimeThrow > .5f - (0.01 * GameController.instance.playerLevel))
+        if (delayTimeThrow > .5f - GameController.instance.ThrowDelay)
         {
             GameObject weapon = GameController.instance.spawnWeapon.SpawnAct(1);
             weapon.transform.position = transform.position;
             delayTimeThrow = 0;
         }
     }
-    public void RotateBullet(int index)
+    /*public void RotateBullet(int index)
     {        
         Transform weapon = GameController.instance.spawnWeapon.SpawnAct(2).transform;
 
@@ -139,7 +140,7 @@ public class Player : MonoBehaviour
         Vector3 rotateVec = Vector3.forward * 360 * index / countRotate;
         weapon.Rotate(rotateVec);
         weapon.Translate(weapon.up * 1.5f, Space.World);
-    }
+    }*/
     public void BoomBullet()
     {
         delayTimeBoom += Time.deltaTime;

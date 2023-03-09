@@ -66,7 +66,7 @@ public abstract class Weapon : MonoBehaviour
                         GetComponent<CircleCollider2D>().enabled = true;
                     }
 
-                    if (destroyTime > 5f)
+                    if (destroyTime > 2.2f)
                     {
                         Destroy(gameObject);
                     }

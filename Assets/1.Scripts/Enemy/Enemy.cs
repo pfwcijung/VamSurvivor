@@ -4,6 +4,7 @@ using System.Diagnostics;
 using UnityEditor.ShaderKeywordFilter;
 using UnityEditor.UIElements;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 public struct EnemyData
 {
@@ -28,7 +29,6 @@ public abstract class Enemy : MonoBehaviour
 
     float delayTime = 1;
     float deadTime = 0f;
-
     void Awake()
     {
         sprite = GetComponent<SpriteRenderer>();

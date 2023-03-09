@@ -13,6 +13,6 @@ public class Bullet3 : Weapon
         float randPosY = Random.Range(myPos.y - 5, myPos.y + 5);
 
         transform.position = new Vector3(randPosX, randPosY, 0);
-        GetComponent<Weapon>().SetWeaponInfo("BoomBullet", 10, 5);
+        GetComponent<Weapon>().SetWeaponInfo("BoomBullet", 50 + GameController.instance.BoomDamage, 5);
     }
 }

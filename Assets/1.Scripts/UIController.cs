@@ -20,8 +20,6 @@ public struct LevelImage
 
 public class UIController : MonoBehaviour
 {
-    List<LevelImage> ImageList = new List<LevelImage>();
-
     [Header("#Base UI")]
     [SerializeField] private Image hpImage;
     [SerializeField] private Image expImage;
@@ -30,18 +28,14 @@ public class UIController : MonoBehaviour
     [SerializeField] private TMP_Text killcount;
 
     [Header("#LevelUp UI")]
-    [SerializeField] private Image upgradeImage_1;
-    [SerializeField] private TMP_Text upgradeData_1;
-    [SerializeField] private Image upgradeImage_2;
-    [SerializeField] private TMP_Text upgradeData_2;
-    [SerializeField] private Image upgradeImage_3;
-    [SerializeField] private TMP_Text upgradeData_3;
+    [SerializeField] private List<Image> upgradeImage = new List<Image>();
+    [SerializeField] private List<TMP_Text> upgradeText = new List<TMP_Text>();
+    [SerializeField] private List<Button> upgradeButton = new List<Button>();
 
     [Header("#Pause UI")]
     [SerializeField] private TMP_Text pauseInfo;
     [SerializeField] private TMP_Text playerInfo;
     [SerializeField] private TMP_Text weaponInfo;
-    [SerializeField] private TMP_Text gameInfo;
     [SerializeField] private TMP_Text exitInfo;
 
 
@@ -71,10 +65,10 @@ public class UIController : MonoBehaviour
         expImage.fillAmount = GameController.instance.playerCurEXP / GameController.instance.playerMaxEXP;
 
         time.text = string.Format($"{min:00}:{sec:00}");
-        level.text = string.Format($"Lv.{GameController.instance.playerLevel:00}");
+        level.text = string.Format($"Lv.{GameController.instance.level:00}");
         killcount.text = string.Format($"{GameController.instance.killCount:000}");
 
-        if(GameController.instance.isPause == true)
+        if(GameController.instance.isPause)
         {
             GameController.instance.pauseUI.SetActive(true);
 
@@ -85,10 +79,22 @@ public class UIController : MonoBehaviour
             GameController.instance.pauseUI.SetActive(false);
         }
 
-        if (GameController.instance.isLevelUp == true)
+        if (GameController.instance.isLevelUp)
         {
             Time.timeScale = 0;
+            for(int i = 0; i < 3; i++)
+            {
+                LevelupUI(i);
+            }
             GameController.instance.levelUpUI.SetActive(true);
+        }
+
+        if (GameController.instance.isGameEnd)
+        {
+            if (GameController.instance.player.isLive)
+                GameController.instance.GameClearUI.SetActive(true);
+            else if(!GameController.instance.player.isLive)
+                GameController.instance.GameOverUI.SetActive(true);
         }
     }
 
@@ -97,40 +103,44 @@ public class UIController : MonoBehaviour
         pauseInfo.text = string.Format("일시 정지");
         playerInfo.text = string.Format
             ($"플레이어 정보\n체력 :: {GameController.instance.player.curHp}/{GameController.instance.player.maxHp}" +
-            $"\n속도 :: {GameController.instance.player.speed}m/s\n줍기 범위 :: {GameController.instance.player.speed}m");//줍기 범위 임시
-        weaponInfo.text = string.Format($"무기(이름) 레벨 {GameController.instance.playerLevel}");
-        gameInfo.text = string.Format($"플레이 시간 :: {min:00}:{sec:00}\n킬 수 :: {GameController.instance.killCount}");
+            $"\n속도 :: {GameController.instance.player.speed}m/s\n줍기 범위 :: {GameController.instance.itemArea}m");
+        weaponInfo.text = string.Format
+            ($"던지기 레벨 :: {GameController.instance.ThrowDamage / 20}\n" +
+            $"총알 레벨 :: {GameController.instance.ShootingDamage / 10}\n" +
+            $"폭탄 레벨 :: {GameController.instance.BoomDamage / 50}");
         exitInfo.text = string.Format("ESC를 눌러 계속합니다.");
     }
 
     public void LevelupUI(int index)
     {
-        switch (index)
-        {
-            case 0:
-                
-                break;
-            default:
-                break;
-        }
+        Sprite sprite = GameController.instance.imageData.SetImageSpriteData(index);
+        string str = GameController.instance.imageData.SetImageInfoText(index);
+        upgradeImage[index].sprite = sprite;
+        upgradeText[index].text = str;
     }
 
-    public void onButtonClick_1()
+    public void onButtonClick_1(int index)
     {
+        index = 0;
         Time.timeScale = 1;
+        GameController.instance.UpgradePlayer(index);
         GameController.instance.isLevelUp = false;
         GameController.instance.levelUpUI.SetActive(false);
         
     }
-    public void onButtonClick_2()
+    public void onButtonClick_2(int index)
     {
+        index = 1;
         Time.timeScale = 1;
+        GameController.instance.UpgradePlayer(index);
         GameController.instance.isLevelUp = false;
         GameController.instance.levelUpUI.SetActive(false);
     }
-    public void onButtonClick_3()
+    public void onButtonClick_3(int index)
     {
+        index = 2;
         Time.timeScale = 1;
+        GameController.instance.UpgradePlayer(index);
         GameController.instance.isLevelUp = false;
         GameController.instance.levelUpUI.SetActive(false);
     }

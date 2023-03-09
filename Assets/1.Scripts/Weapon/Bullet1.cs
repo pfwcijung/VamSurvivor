@@ -11,6 +11,6 @@ public class Bullet1 : Weapon
         float angle = Mathf.Atan2(vec.y, vec.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
 
-        GetComponent<Weapon>().SetWeaponInfo("ThrowBullet", 10, 3);
+        GetComponent<Weapon>().SetWeaponInfo("ThrowBullet", 20 + GameController.instance.ThrowDamage, 3);
     }
 }

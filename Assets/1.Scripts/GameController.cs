@@ -8,6 +8,7 @@ public class GameController : MonoBehaviour
     public SpawnEnemy spawnEnemy;
     public SpawnWeapon spawnWeapon;
     public SpawnItem spawnItem;
+    public UIImageData imageData;
     public Player player;
 
     //게임 난이도 상승
@@ -16,6 +17,8 @@ public class GameController : MonoBehaviour
     private float upgradeCount = 5;
 
     //플레이어 관련
+    public float setMaxHp = 0;
+    public float setSpeed = 0;
     public float playerLevel = 0;
     public float playerCurEXP = 0;
     public float playerMaxEXP = 100;
@@ -31,8 +34,21 @@ public class GameController : MonoBehaviour
     //UI 활성/비활성
     public bool isPause = false;
     public bool isLevelUp = false;
+    public bool isGameEnd = false;
     public GameObject pauseUI;
     public GameObject levelUpUI;
+    public GameObject GameOverUI;
+    public GameObject GameClearUI;
+
+    //무기 레벨업/활성화 관련
+    public float ThrowDamage = 0;
+    public float ThrowDelay = 0;
+    public bool ThrowActive = false;
+    public float ShootingDamage = 0;
+    public float ShootingDelay = 0;
+    public bool ShootingActive = false;
+    public float BoomDamage = 0;
+    public bool BoomActive = false;
     void Awake() => instance = this;
 
     void Update()
@@ -60,11 +76,6 @@ public class GameController : MonoBehaviour
             playerMaxEXP += (playerMaxEXP / 2);
         }
 
-        if(player.curHp > player.maxHp)
-        {
-            player.curHp = player.maxHp;
-        }
-
         if (magnetActive)
         {
             timer += Time.deltaTime;
@@ -90,6 +101,12 @@ public class GameController : MonoBehaviour
             isPause = true;
             Time.timeScale = 0;
         }
+
+        if (!player.isLive || level >= 60)
+        {
+            Time.timeScale = 0;
+            isGameEnd = true;
+        }
     }
 
     void storeItemAreaData()
@@ -98,5 +115,46 @@ public class GameController : MonoBehaviour
             return;
 
         temp = itemArea;
+    }
+
+    public void UpgradePlayer(int index)
+    {
+        switch (index)
+        {
+            case 0:
+                {
+                    if (!ThrowActive)
+                        ThrowActive = true;
+                    else
+                    {
+                        ThrowDamage += 20f;
+                        ThrowDelay += 0.05f;
+                    }
+                    break;
+                }
+            case 1:
+                {
+                    if (!ShootingActive)
+                        ShootingActive = true;
+                    else
+                    {
+                        ShootingDamage += 10f;
+                        ShootingDelay += 0.02f;
+                    }
+                    break;
+                }
+            case 2:
+                {
+                    if (!BoomActive)
+                        BoomActive = true;
+                    else
+                    {
+                        BoomDamage += 50f;
+                    }
+                    break;
+                }
+            default:
+                break;
+        }
     }
 }
