@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Linq;
 
 public struct UpData
 {
@@ -42,12 +43,22 @@ public class UIController : MonoBehaviour
     float sec = 0;
     float min = 0;
 
+    List<int> temps = new List<int>();
+
     void Start()
     {
         expImage.fillAmount = 0;
     }
     void Update()
     {
+        if (GameController.instance.isGameEnd)
+        {
+            if (GameController.instance.player.isLive)
+                GameController.instance.GameClearUI.SetActive(true);
+            else
+                GameController.instance.GameOverUI.SetActive(true);
+        }
+
         if (!GameController.instance.player.isLive)
         {
             hpImage.enabled = false;
@@ -82,19 +93,35 @@ public class UIController : MonoBehaviour
         if (GameController.instance.isLevelUp)
         {
             Time.timeScale = 0;
-            for(int i = 0; i < 3; i++)
-            {
-                LevelupUI(i);
-            }
+            SetLevelupUI();
             GameController.instance.levelUpUI.SetActive(true);
+            GameController.instance.isLevelUp = false;
+        }
+        
+    }
+    public void SetLevelupUI()
+    {
+        List<int> temp = new List<int>();
+
+        for (int i = 0; i < GameController.instance.imageData.ImageDatas.Length; i++)
+        {
+            temp.Add(i);
         }
 
-        if (GameController.instance.isGameEnd)
+        for (int i = temp.Count - 1; i >= 0; i--)
         {
-            if (GameController.instance.player.isLive)
-                GameController.instance.GameClearUI.SetActive(true);
-            else if(!GameController.instance.player.isLive)
-                GameController.instance.GameOverUI.SetActive(true);
+            int rand = Random.Range(0, temp.Count);
+            temps.Add(temp[rand]);
+
+            if (temps.Count >= 3)
+                break;
+
+            temp.RemoveAt(temp[rand]);
+        }
+
+        for (int i = 0; i < 3; i++)
+        {
+            LevelupUI(i, temps[i]);
         }
     }
 
@@ -111,12 +138,12 @@ public class UIController : MonoBehaviour
         exitInfo.text = string.Format("ESC를 눌러 계속합니다.");
     }
 
-    public void LevelupUI(int index)
+    public void LevelupUI(int i, int index)
     {
         Sprite sprite = GameController.instance.imageData.SetImageSpriteData(index);
         string str = GameController.instance.imageData.SetImageInfoText(index);
-        upgradeImage[index].sprite = sprite;
-        upgradeText[index].text = str;
+        upgradeImage[i].sprite = sprite;
+        upgradeText[i].text = str;
     }
 
     public void onButtonClick_1(int index)
@@ -124,24 +151,24 @@ public class UIController : MonoBehaviour
         index = 0;
         Time.timeScale = 1;
         GameController.instance.UpgradePlayer(index);
-        GameController.instance.isLevelUp = false;
         GameController.instance.levelUpUI.SetActive(false);
-        
+        temps.RemoveRange(0, temps.Count);
+
     }
     public void onButtonClick_2(int index)
     {
         index = 1;
         Time.timeScale = 1;
         GameController.instance.UpgradePlayer(index);
-        GameController.instance.isLevelUp = false;
         GameController.instance.levelUpUI.SetActive(false);
+        temps.RemoveRange(0, temps.Count);
     }
     public void onButtonClick_3(int index)
     {
         index = 2;
         Time.timeScale = 1;
         GameController.instance.UpgradePlayer(index);
-        GameController.instance.isLevelUp = false;
         GameController.instance.levelUpUI.SetActive(false);
+        temps.RemoveRange(0, temps.Count);
     }
 }

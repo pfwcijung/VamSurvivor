@@ -18,7 +18,6 @@ public class SceneChange : MonoBehaviour
     public void GoToGameScene()
     {
         SceneManager.LoadScene("Game");
-        //GameController.instance.setMaxHp = 100f;
-        //GameController.instance.setSpeed = 3f;
+        PlayerInfo.instance.Data(0);
     }
 }

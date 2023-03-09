@@ -5495,6 +5495,8 @@ MonoBehaviour:
   player: {fileID: 740731412}
   level: 0
   enemyUpgrade: 1
+  setMaxHp: 0
+  setSpeed: 0
   playerLevel: 0
   playerCurEXP: 0
   playerMaxEXP: 100

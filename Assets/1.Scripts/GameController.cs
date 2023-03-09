@@ -49,7 +49,30 @@ public class GameController : MonoBehaviour
     public bool ShootingActive = false;
     public float BoomDamage = 0;
     public bool BoomActive = false;
-    void Awake() => instance = this;
+    void Awake()
+    {
+        instance = this;
+
+        switch (PlayerInfo.instance.Act)
+        {
+            case "Throw":
+                setMaxHp = 100;
+                setSpeed = 3;
+                ThrowActive = true;
+                break;
+            case "Shoot":
+                setMaxHp = 100;
+                setSpeed = 3;
+                ShootingActive = true;
+                break;
+            case "Boom":
+                setMaxHp = 100;
+                setSpeed = 3;
+                BoomActive = true;
+                break;
+        }
+    }
+
 
     void Update()
     {
@@ -104,8 +127,8 @@ public class GameController : MonoBehaviour
 
         if (!player.isLive || level >= 60)
         {
-            Time.timeScale = 0;
             isGameEnd = true;
+            Time.timeScale = 0;
         }
     }
 

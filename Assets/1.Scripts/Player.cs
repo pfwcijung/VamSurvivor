@@ -27,8 +27,8 @@ public class Player : MonoBehaviour
         anim = GetComponent<Animator>();
         anim.SetTrigger("Idle");
 
-        maxHp = curHp = GameController.instance.setMaxHp + 100;
-        speed = GameController.instance.setSpeed + 3;
+        maxHp = curHp = GameController.instance.setMaxHp;
+        speed = GameController.instance.setSpeed;
     }
 
     void Update()
