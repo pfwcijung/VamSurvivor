@@ -129,18 +129,38 @@ public class UIController : MonoBehaviour
         }
 
     }
-
+    string weapon1, weapon2, weapon3;
     public void PauseUI()
     {
+        SetWeaponInfoText();
         pauseInfo.text = string.Format("일시 정지");
         playerInfo.text = string.Format
             ($"플레이어 정보\n체력 :: {GameController.instance.player.curHp}/{GameController.instance.player.maxHp}" +
             $"\n속도 :: {GameController.instance.player.speed}m/s\n줍기 범위 :: {GameController.instance.itemArea}m");
         weaponInfo.text = string.Format
-            ($"삽 레벨 :: {(GameController.instance.ThrowDamage / 20) - 1}\n" +
-            $"총알 레벨 :: {(GameController.instance.ShootingDamage / 10) -1 }\n" +
-            $"폭탄 레벨 :: {(GameController.instance.BoomDamage / 50) - 1}");
+            ($"삽 레벨 :: {weapon1}\n" +
+            $"총알 레벨 :: {weapon2}\n" +
+            $"폭탄 레벨 :: {weapon3}");
         exitInfo.text = string.Format("ESC를 눌러 계속합니다.");
+    }
+
+    public void SetWeaponInfoText()
+    {
+        if (GameController.instance.ThrowActive)
+            weapon1 = string.Format($"{GameController.instance.ThrowDamage / GameController.instance.ThrowUpgradeDamage}");
+        else
+            weapon1 = "비활성화";
+
+        if (GameController.instance.ShootingActive)
+            weapon2 = string.Format($"{GameController.instance.ShootingDamage / GameController.instance.ShootingUpgradeDamage}");
+        else
+            weapon2 = "비활성화";
+
+        if (GameController.instance.BoomActive)
+            weapon3 = string.Format($"{GameController.instance.BoomDamage / GameController.instance.BoomUpgradeDamage}");
+        else
+            weapon3 = "비활성화";
+
     }
 
     public void LevelupUI(int i, int index)

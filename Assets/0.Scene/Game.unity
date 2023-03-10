@@ -391,7 +391,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 56312114}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2002034416}
+        m_TargetAssemblyTypeName: SceneChange, Assembly-CSharp
+        m_MethodName: ExitGameButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &56312114
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5496,7 +5508,9 @@ MonoBehaviour:
   level: 0
   enemyUpgrade: 1
   setMaxHp: 0
+  upgradeHp: 10
   setSpeed: 0
+  upgradeSpeed: 1
   playerLevel: 0
   playerCurEXP: 0
   playerMaxEXP: 100
@@ -5513,11 +5527,16 @@ MonoBehaviour:
   GameClearUI: {fileID: 729455085}
   ThrowDamage: 0
   ThrowDelay: 0
-  ThrowActive: 0
   ShootingDamage: 0
   ShootingDelay: 0
-  ShootingActive: 0
   BoomDamage: 0
+  ThrowUpgradeDamage: 20
+  ThrowUpgradeDelay: 0.05
+  ThrowActive: 0
+  ShootingUpgradeDamage: 10
+  ShootingUpgradeDelay: 0.025
+  ShootingActive: 0
+  BoomUpgradeDamage: 50
   BoomActive: 0
 --- !u!4 &559177413
 Transform:
@@ -6704,7 +6723,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2002034416}
         m_TargetAssemblyTypeName: SceneChange, Assembly-CSharp
-        m_MethodName: GoToMainScene
+        m_MethodName: ExitGameButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -30,4 +30,9 @@ public class SceneChange : MonoBehaviour
         SceneManager.LoadScene("Game");
         PlayerInfo.instance.Data(2);
     }
+
+    public void ExitGameButton()
+    {
+        Application.Quit();
+    }
 }
