@@ -5505,6 +5505,7 @@ MonoBehaviour:
   spawnItem: {fileID: 1791837002}
   imageData: {fileID: 1696392382}
   player: {fileID: 740731412}
+  CameraObj: {fileID: 0}
   level: 0
   enemyUpgrade: 1
   setMaxHp: 0
@@ -16613,6 +16614,7 @@ GameObject:
   - component: {fileID: 1601132112}
   - component: {fileID: 1601132111}
   - component: {fileID: 1601132114}
+  - component: {fileID: 1601132115}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -16698,6 +16700,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 828db14bd8865454e8f9378eb6f579eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1601132115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1601132110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee359b5aea915e043a01a06615b0d98f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BGMList:
+  - name: Base
+    audio: {fileID: 8300000, guid: 6f0c572d865b4664db7a460972bc4768, type: 3}
+  - name: Hit
+    audio: {fileID: 8300000, guid: 0bddcb411d826e14bb26d40ae45d8e22, type: 3}
+  - name: LevelUp
+    audio: {fileID: 8300000, guid: 64795b87003c2324fa0814fbc336066c, type: 3}
+  - name: Dead
+    audio: {fileID: 8300000, guid: 291608b8d286e2a4580ff36324455ce2, type: 3}
+  - name: Over
+    audio: {fileID: 8300000, guid: c8a3fe17a6641ec48b38fb455a40a223, type: 3}
+  - name: Clear
+    audio: {fileID: 8300000, guid: 2c4bc183a5df5aa4baf7c4fcf236a2de, type: 3}
 --- !u!1 &1666654779
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,6 +10,7 @@ public class GameController : MonoBehaviour
     public SpawnItem spawnItem;
     public UIImageData imageData;
     public Player player;
+    public GameObject CameraObj;
 
     //게임 난이도 상승
     public float level = 0;
@@ -62,6 +63,8 @@ public class GameController : MonoBehaviour
     {
         instance = this;
 
+        CameraObj = GameObject.Find("Main Camera");
+
         ThrowDamage = 20;
         ThrowDelay = 1f;
         ShootingDamage = 10;
@@ -110,7 +113,7 @@ public class GameController : MonoBehaviour
             playerCurEXP = playerCurEXP - playerMaxEXP;
             playerLevel++;
             isLevelUp = true;
-
+            CameraObj.GetComponent<AudioController>().PlayBGM("LevelUp");
             playerMaxEXP += (playerMaxEXP / 2);
         }
 

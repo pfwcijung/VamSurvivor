@@ -54,9 +54,15 @@ public class UIController : MonoBehaviour
         if (GameController.instance.isGameEnd)
         {
             if (GameController.instance.player.isLive)
+            {
+                GameController.instance.CameraObj.GetComponent<AudioController>().PlayBGM("Clear");
                 GameController.instance.GameClearUI.SetActive(true);
+            }
             else
+            {
+                GameController.instance.CameraObj.GetComponent<AudioController>().PlayBGM("Over");
                 GameController.instance.GameOverUI.SetActive(true);
+            }
         }
 
         if (!GameController.instance.player.isLive)
