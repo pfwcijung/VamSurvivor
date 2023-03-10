@@ -121,8 +121,13 @@ public class UIController : MonoBehaviour
 
         for (int i = 0; i < 3; i++)
         {
+            Debug.Log(temps[i]);
+        }
+        for (int i = 0; i < 3; i++)
+        {
             LevelupUI(i, temps[i]);
         }
+
     }
 
     public void PauseUI()
