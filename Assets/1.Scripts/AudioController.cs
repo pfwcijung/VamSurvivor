@@ -20,7 +20,7 @@ public class AudioController : MonoBehaviour
     void Start()
     {
         BGM = gameObject.AddComponent<AudioSource>();
-        BGM.loop = true;
+        BGM.loop = false;
         if (BGMList.Length > 0)
             PlayBGM(BGMList[0].name);
     }

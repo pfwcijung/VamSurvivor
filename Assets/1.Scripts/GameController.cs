@@ -11,6 +11,7 @@ public class GameController : MonoBehaviour
     public UIImageData imageData;
     public Player player;
     public GameObject CameraObj;
+    public GameObject BGMobj;
 
     //게임 난이도 상승
     public float level = 0;
@@ -147,6 +148,7 @@ public class GameController : MonoBehaviour
         {
             isGameEnd = true;
             Time.timeScale = 0;
+            BGMobj.SetActive(false);
         }
     }
 

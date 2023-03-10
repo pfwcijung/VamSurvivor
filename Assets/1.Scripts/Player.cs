@@ -67,14 +67,12 @@ public class Player : MonoBehaviour
             return;
 
         curHp -= dmg;
-        GameController.instance.CameraObj.GetComponent<AudioController>().PlayBGM("Hit");
 
         if (curHp <= 0)
         {
             isLive = false;
             anim.SetTrigger("Dead");
             transform.tag = "Untagged";
-            GameController.instance.CameraObj.GetComponent<AudioController>().PlayBGM("Dead");
         }
     }
     public void PlayerMove()
