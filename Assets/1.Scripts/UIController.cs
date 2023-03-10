@@ -132,9 +132,9 @@ public class UIController : MonoBehaviour
             ($"플레이어 정보\n체력 :: {GameController.instance.player.curHp}/{GameController.instance.player.maxHp}" +
             $"\n속도 :: {GameController.instance.player.speed}m/s\n줍기 범위 :: {GameController.instance.itemArea}m");
         weaponInfo.text = string.Format
-            ($"던지기 레벨 :: {GameController.instance.ThrowDamage / 20}\n" +
-            $"총알 레벨 :: {GameController.instance.ShootingDamage / 10}\n" +
-            $"폭탄 레벨 :: {GameController.instance.BoomDamage / 50}");
+            ($"삽 레벨 :: {(GameController.instance.ThrowDamage / 20) - 1}\n" +
+            $"총알 레벨 :: {(GameController.instance.ShootingDamage / 10) -1 }\n" +
+            $"폭탄 레벨 :: {(GameController.instance.BoomDamage / 50) - 1}");
         exitInfo.text = string.Format("ESC를 눌러 계속합니다.");
     }
 
@@ -142,13 +142,26 @@ public class UIController : MonoBehaviour
     {
         Sprite sprite = GameController.instance.imageData.SetImageSpriteData(index);
         string str = GameController.instance.imageData.SetImageInfoText(index);
+
         upgradeImage[i].sprite = sprite;
         upgradeText[i].text = str;
+
+        switch (i)
+        {
+            case 0:
+                onButtonClick_1(index);
+                break;
+            case 1:
+                onButtonClick_2(index);
+                break;
+            case 2:
+                onButtonClick_3(index);
+                break;
+        }
     }
 
     public void onButtonClick_1(int index)
     {
-        index = 0;
         Time.timeScale = 1;
         GameController.instance.UpgradePlayer(index);
         GameController.instance.levelUpUI.SetActive(false);
@@ -157,7 +170,6 @@ public class UIController : MonoBehaviour
     }
     public void onButtonClick_2(int index)
     {
-        index = 1;
         Time.timeScale = 1;
         GameController.instance.UpgradePlayer(index);
         GameController.instance.levelUpUI.SetActive(false);
@@ -165,7 +177,6 @@ public class UIController : MonoBehaviour
     }
     public void onButtonClick_3(int index)
     {
-        index = 2;
         Time.timeScale = 1;
         GameController.instance.UpgradePlayer(index);
         GameController.instance.levelUpUI.SetActive(false);

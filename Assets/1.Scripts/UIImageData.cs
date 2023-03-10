@@ -34,11 +34,11 @@ public class UIImageData : MonoBehaviour
                 {
                     if (!GameController.instance.ThrowActive)
                     {
-                        str = string.Format("던지기 무기를 활성화합니다");
+                        str = string.Format("삽 무기를 활성화합니다");
                     }
                     else
                     {
-                        str = string.Format($"던지기의 데미지를 20올리고 발사속도를 증가시킵니다.");
+                        str = string.Format($"삽의 데미지를 {0:0}올리고 발사속도를 증가시킵니다", GameController.instance.ThrowUpgradeDamage);
                     }
                     break;
                 }
@@ -50,7 +50,7 @@ public class UIImageData : MonoBehaviour
                     }
                     else
                     {
-                        str = string.Format($"총알의 데미지를 10올리고 발사속도를 증가시킵니다");
+                        str = string.Format($"총알의 데미지를 {0:0}올리고 발사속도를 증가시킵니다", GameController.instance.ShootingUpgradeDamage);
                     }
                     break;
                 }
@@ -62,7 +62,7 @@ public class UIImageData : MonoBehaviour
                     }
                     else
                     {
-                        str = string.Format($"폭탄의 데미지를 50올립니다");
+                        str = string.Format($"폭탄의 데미지를 {0:0}올립니다", GameController.instance.BoomUpgradeDamage);
                     }
                     break;
                 }
@@ -73,12 +73,12 @@ public class UIImageData : MonoBehaviour
                 }
             case 4:
                 {
-                    str = string.Format($"이동 속도가 {0}증가합니다", 5);
+                    str = string.Format($"이동 속도가 {0:0}증가합니다", GameController.instance.upgradeSpeed);
                     break;
                 }
             case 5:
                 {
-                    str = string.Format($"최대 체력을 {0} 증가합니다", 5);
+                    str = string.Format($"최대 체력을 {0:0} 증가합니다", GameController.instance.upgradeHp);
                     break;
                 }
             default:

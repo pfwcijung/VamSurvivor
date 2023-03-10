@@ -113,7 +113,7 @@ public class Player : MonoBehaviour
     public void ShootingBullet()
     {
         delayTimeShooting += Time.deltaTime;
-        if (delayTimeShooting > .3f - GameController.instance.ShootingDelay)
+        if (delayTimeShooting > GameController.instance.ShootingDelay)
         {
             GameObject weapon = GameController.instance.spawnWeapon.SpawnAct(0);
             weapon.transform.position = transform.position;
@@ -123,7 +123,7 @@ public class Player : MonoBehaviour
     public void ThrowBullet()
     {
         delayTimeThrow += Time.deltaTime;
-        if (delayTimeThrow > .5f - GameController.instance.ThrowDelay)
+        if (delayTimeThrow > GameController.instance.ThrowDelay)
         {
             GameObject weapon = GameController.instance.spawnWeapon.SpawnAct(1);
             weapon.transform.position = transform.position;

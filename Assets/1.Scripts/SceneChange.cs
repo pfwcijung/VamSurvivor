@@ -15,9 +15,19 @@ public class SceneChange : MonoBehaviour
         SceneManager.LoadScene("Choose");
     }
 
-    public void GoToGameScene()
+    public void GoToGameScene_Player0()
     {
         SceneManager.LoadScene("Game");
         PlayerInfo.instance.Data(0);
+    }
+    public void GoToGameScene_Player1()
+    {
+        SceneManager.LoadScene("Game");
+        PlayerInfo.instance.Data(1);
+    }
+    public void GoToGameScene_Player2()
+    {
+        SceneManager.LoadScene("Game");
+        PlayerInfo.instance.Data(2);
     }
 }

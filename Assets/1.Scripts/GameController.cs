@@ -18,7 +18,9 @@ public class GameController : MonoBehaviour
 
     //플레이어 관련
     public float setMaxHp = 0;
+    public float upgradeHp = 10;
     public float setSpeed = 0;
+    public float upgradeSpeed = 1;
     public float playerLevel = 0;
     public float playerCurEXP = 0;
     public float playerMaxEXP = 100;
@@ -40,38 +42,51 @@ public class GameController : MonoBehaviour
     public GameObject GameOverUI;
     public GameObject GameClearUI;
 
+    //무기 기본 정보
+    public float ThrowDamage;
+    public float ThrowDelay;
+    public float ShootingDamage;
+    public float ShootingDelay;
+    public float BoomDamage;
+
     //무기 레벨업/활성화 관련
-    public float ThrowDamage = 0;
-    public float ThrowDelay = 0;
+    public float ThrowUpgradeDamage = 20;
+    public float ThrowUpgradeDelay = 0.05f;
     public bool ThrowActive = false;
-    public float ShootingDamage = 0;
-    public float ShootingDelay = 0;
+    public float ShootingUpgradeDamage = 10;
+    public float ShootingUpgradeDelay = 0.025f;
     public bool ShootingActive = false;
-    public float BoomDamage = 0;
+    public float BoomUpgradeDamage = 50;
     public bool BoomActive = false;
     void Awake()
     {
         instance = this;
 
-        switch (PlayerInfo.instance.Act)
-        {
-            case "Throw":
-                setMaxHp = 100;
-                setSpeed = 3;
-                ThrowActive = true;
-                break;
-            case "Shoot":
-                setMaxHp = 100;
-                setSpeed = 3;
-                ShootingActive = true;
-                break;
-            case "Boom":
-                setMaxHp = 100;
-                setSpeed = 3;
-                BoomActive = true;
-                break;
-        }
+        ThrowDamage = 20;
+        ThrowDelay = 1f;
+        ShootingDamage = 10;
+        ShootingDelay = 0.5f;
+        BoomDamage = 50;
+
+    switch (PlayerInfo.instance.Act)
+    {
+        case "Throw":
+            setMaxHp = 150;
+            setSpeed = 5;
+            ThrowActive = true;
+            break;
+        case "Shoot":
+            setMaxHp = 100;
+            setSpeed = 3;
+            ShootingActive = true;
+            break;
+        case "Boom":
+            setMaxHp = 200;
+            setSpeed = 4;
+            BoomActive = true;
+            break;
     }
+}
 
 
     void Update()
@@ -150,8 +165,8 @@ public class GameController : MonoBehaviour
                         ThrowActive = true;
                     else
                     {
-                        ThrowDamage += 20f;
-                        ThrowDelay += 0.05f;
+                        ThrowDamage += ThrowUpgradeDamage;
+                        ThrowDelay += ThrowUpgradeDelay;
                     }
                     break;
                 }
@@ -161,8 +176,8 @@ public class GameController : MonoBehaviour
                         ShootingActive = true;
                     else
                     {
-                        ShootingDamage += 10f;
-                        ShootingDelay += 0.02f;
+                        ShootingDamage += ShootingUpgradeDamage;
+                        ShootingDelay += ShootingUpgradeDelay;
                     }
                     break;
                 }
@@ -172,8 +187,37 @@ public class GameController : MonoBehaviour
                         BoomActive = true;
                     else
                     {
-                        BoomDamage += 50f;
+                        BoomDamage += BoomDamage;
                     }
+                    break;
+                }
+            case 3:
+                {
+                    magnetActive = true;
+                    if (magnetActive)
+                    {
+                        timer += Time.deltaTime;
+                        itemArea = 10f;
+
+                        if (timer > 1f)
+                        {
+                            itemArea = temp;
+                            magnetActive = false;
+                            timer = 0;
+                        }
+                    }
+                    else
+                        storeItemAreaData();
+                    break;
+                }
+            case 4:
+                {
+                    player.speed += upgradeSpeed;
+                    break;
+                }
+            case 5:
+                {
+                    player.maxHp += upgradeHp;
                     break;
                 }
             default:
