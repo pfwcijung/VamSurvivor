@@ -17,6 +17,7 @@ public class UIImageData : MonoBehaviour
         }
     }
 
+    //레벨업 UI의 Image설정
     public Sprite SetImageSpriteData(int index)
     {
         Sprite sp = ImageDatas[index];
@@ -24,6 +25,7 @@ public class UIImageData : MonoBehaviour
         return sp;
     }
 
+    //레벨업 UI의 Text 설정
     public string SetImageInfoText(int index)
     {
         string str = "";
@@ -38,7 +40,7 @@ public class UIImageData : MonoBehaviour
                     }
                     else
                     {
-                        str = string.Format($"삽의 데미지를 {0:0}올리고 발사속도를 증가시킵니다", GameController.instance.ThrowUpgradeDamage);
+                        str = string.Format($"삽의 데미지를 {GameController.instance.ThrowUpgradeDamage}올리고 발사속도를 증가시킵니다");
                     }
                     break;
                 }
@@ -50,7 +52,7 @@ public class UIImageData : MonoBehaviour
                     }
                     else
                     {
-                        str = string.Format($"총알의 데미지를 {0:0}올리고 발사속도를 증가시킵니다", GameController.instance.ShootingUpgradeDamage);
+                        str = string.Format($"총알의 데미지를 {GameController.instance.ShootingUpgradeDamage}올리고 발사속도를 증가시킵니다");
                     }
                     break;
                 }
@@ -62,23 +64,23 @@ public class UIImageData : MonoBehaviour
                     }
                     else
                     {
-                        str = string.Format($"폭탄의 데미지를 {0:0}올립니다", GameController.instance.BoomUpgradeDamage);
+                        str = string.Format($"폭탄의 데미지를 {GameController.instance.BoomUpgradeDamage}올립니다");
                     }
                     break;
                 }
             case 3:
                 {
-                    str = string.Format($"1초간 100m내의 아이템을 모두 획득합니다");
+                    str = string.Format($"아이템 획득 범위가 {GameController.instance.upgradeItemArea}증가합니다.");
                     break;
                 }
             case 4:
                 {
-                    str = string.Format($"이동 속도가 {0:0}증가합니다", GameController.instance.upgradeSpeed);
+                    str = string.Format($"이동 속도가 {GameController.instance.upgradeSpeed}증가합니다");
                     break;
                 }
             case 5:
                 {
-                    str = string.Format($"최대 체력을 {0:0} 증가합니다", GameController.instance.upgradeHp);
+                    str = string.Format($"최대 체력을 {GameController.instance.upgradeHp} 증가합니다");
                     break;
                 }
             default:

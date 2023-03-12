@@ -5,14 +5,6 @@ using UnityEngine.UI;
 using TMPro;
 using System.Linq;
 
-public struct UpData
-{
-    public int dataType;
-    public string dataName;
-    public float dataDamage;
-    public float dataDelay;
-}
-
 public struct LevelImage
 {
     public Image Image;
@@ -31,7 +23,7 @@ public class UIController : MonoBehaviour
     [Header("#LevelUp UI")]
     [SerializeField] private List<Image> upgradeImage = new List<Image>();
     [SerializeField] private List<TMP_Text> upgradeText = new List<TMP_Text>();
-    [SerializeField] private List<Button> upgradeButton = new List<Button>();
+    List<int> temps = new List<int>();
 
     [Header("#Pause UI")]
     [SerializeField] private TMP_Text pauseInfo;
@@ -43,7 +35,6 @@ public class UIController : MonoBehaviour
     float sec = 0;
     float min = 0;
 
-    List<int> temps = new List<int>();
 
     void Start()
     {
@@ -51,6 +42,7 @@ public class UIController : MonoBehaviour
     }
     void Update()
     {
+        //게임 오버, 게임 클리어에 따른 UI, Bgm 설정
         if (GameController.instance.isGameEnd)
         {
             if (GameController.instance.player.isLive)
@@ -65,6 +57,7 @@ public class UIController : MonoBehaviour
             }
         }
 
+        //플레이어 사망
         if (!GameController.instance.player.isLive)
         {
             hpImage.enabled = false;
@@ -78,13 +71,18 @@ public class UIController : MonoBehaviour
             min++;
         }
 
+        //플레이어 Hp UI
         hpImage.fillAmount = GameController.instance.player.curHp / GameController.instance.player.maxHp;
+        //플레이어 Exp UI
         expImage.fillAmount = GameController.instance.playerCurEXP / GameController.instance.playerMaxEXP;
-
+        //게임 진행 시간 UI
         time.text = string.Format($"{min:00}:{sec:00}");
-        level.text = string.Format($"Lv.{GameController.instance.level:00}");
+        //게임 난이도 UI
+        level.text = string.Format($"Stage:{GameController.instance.level:00}");
+        //죽은 적 수 UI
         killcount.text = string.Format($"{GameController.instance.killCount:000}");
 
+        //Pause UI 활성 / 비활성화
         if(GameController.instance.isPause)
         {
             GameController.instance.pauseUI.SetActive(true);
@@ -96,9 +94,9 @@ public class UIController : MonoBehaviour
             GameController.instance.pauseUI.SetActive(false);
         }
 
+        //레벨업 UI 활성화
         if (GameController.instance.isLevelUp)
         {
-            Time.timeScale = 0;
             SetLevelupUI();
             GameController.instance.levelUpUI.SetActive(true);
             GameController.instance.isLevelUp = false;
@@ -107,13 +105,17 @@ public class UIController : MonoBehaviour
     }
     public void SetLevelupUI()
     {
-        List<int> temp = new List<int>();
+        Time.timeScale = 0;
 
+        //중복 값이 temps에 들어가는 것 방지 위함
+        List<int> temp = new List<int>();
+        
         for (int i = 0; i < GameController.instance.imageData.ImageDatas.Length; i++)
         {
             temp.Add(i);
         }
 
+        //temps에 넣은 temp값을 삭제하여 중복을 방지
         for (int i = temp.Count - 1; i >= 0; i--)
         {
             int rand = Random.Range(0, temp.Count);
@@ -147,6 +149,7 @@ public class UIController : MonoBehaviour
 
     public void SetWeaponInfoText()
     {
+        //무기 활성 / 비활성에 따라 무기 정보 제공
         if (GameController.instance.ThrowActive)
             weapon1 = string.Format($"{GameController.instance.ThrowDamage / GameController.instance.ThrowUpgradeDamage}");
         else
@@ -171,41 +174,33 @@ public class UIController : MonoBehaviour
 
         upgradeImage[i].sprite = sprite;
         upgradeText[i].text = str;
-        /*
-        switch (i)
-        {
-            case 0:
-                onButtonClick_1(index);
-                break;
-            case 1:
-                onButtonClick_2(index);
-                break;
-            case 2:
-                onButtonClick_3(index);
-                break;
-        }*/
     }
-
+    //버튼 클릭하면 다시 게임이 진행되며 넣어진 데이터만큼 플레이어 스탯 상승
     public void onButtonClick_1()
     {
         Time.timeScale = 1;
         GameController.instance.UpgradePlayer(temps[0]);
         GameController.instance.levelUpUI.SetActive(false);
+        GameController.instance.CameraObj.GetComponent<AudioController>().PlayBGM("Base");
         temps.RemoveRange(0, temps.Count);
-
+        temps.Clear();
     }
     public void onButtonClick_2()
     {
         Time.timeScale = 1;
         GameController.instance.UpgradePlayer(temps[1]);
         GameController.instance.levelUpUI.SetActive(false);
+        GameController.instance.CameraObj.GetComponent<AudioController>().PlayBGM("Base");
         temps.RemoveRange(0, temps.Count);
+        temps.Clear();
     }
     public void onButtonClick_3()
     {
         Time.timeScale = 1;
         GameController.instance.UpgradePlayer(temps[2]);
         GameController.instance.levelUpUI.SetActive(false);
+        GameController.instance.CameraObj.GetComponent<AudioController>().PlayBGM("Base");
         temps.RemoveRange(0, temps.Count);
+        temps.Clear();
     }
 }

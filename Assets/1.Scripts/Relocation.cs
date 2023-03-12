@@ -5,6 +5,7 @@ using static UnityEditor.PlayerSettings;
 
 public class Relocation : MonoBehaviour
 {
+    //맵 이동을 위함
     void OnTriggerExit2D(Collider2D collision)
     {
         if (!collision.CompareTag("area"))
@@ -22,6 +23,7 @@ public class Relocation : MonoBehaviour
         dirX = dirX > 0 ? 1 : -1;
         dirY = dirY > 0 ? 1 : -1;
 
+        //플레이어 위치와 방향에 따라 트리거가 끝난 바닥의 위치를 상, 하, 좌, 우로 조정하기 위함
         if (diffX > diffY)
             transform.Translate(Vector3.right * dirX * 40);
         else if (diffY > diffX) 

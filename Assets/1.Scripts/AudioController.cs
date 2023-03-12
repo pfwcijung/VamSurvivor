@@ -27,9 +27,11 @@ public class AudioController : MonoBehaviour
 
     public void PlayBGM(string name)
     {
+        //현재 재생 중인 bgm 이름
         if (NowBGMname.Equals(name)) 
             return;
 
+        //미리 리스트에 넣어둔 이름값에 따라 bgm을 재생하기 위함
         for (int i = 0; i < BGMList.Length; ++i)
             if (BGMList[i].name.Equals(name))
             {

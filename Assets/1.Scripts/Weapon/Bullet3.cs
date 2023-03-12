@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Bullet3 : Weapon
 {
+    //ÆøÅº ¹«±â
     void Start()
     {
         Vector3 myPos = GameController.instance.player.transform.position;

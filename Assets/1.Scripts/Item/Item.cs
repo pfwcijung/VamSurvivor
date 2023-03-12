@@ -9,6 +9,7 @@ public abstract class Item : MonoBehaviour
 
     void Start()
     {
+        //플레이어를 타겟으로 잡게 하기 위함
         target = GameObject.FindGameObjectWithTag("player");
     }
     void Update()
@@ -16,45 +17,14 @@ public abstract class Item : MonoBehaviour
         if (!GameController.instance.player.isLive)
             return;
 
+        //플레이어와 일정한 거리 내에 있으면 자석처럼 따라게 하기 위함
         if (Vector2.Distance(target.transform.position, transform.position) <= GameController.instance.itemArea)
         {
 
             Vector2 vec = transform.position - target.transform.position;
-            vec = vec * Time.deltaTime * GameController.instance.player.speed * 2f;
+            vec = vec * Time.deltaTime * GameController.instance.player.speed * 2f; //플레이어 속도의 두 배를 하여 아이템이 습득되지 않고 영영 따라다니는거 방지를 위함
 
             transform.Translate(new Vector2(-vec.x, -vec.y));
         }
     }
-    /*
-    public float exp;
-    GameObject target;
-
-    void Start()
-    {
-        target = GameObject.FindGameObjectWithTag("player");
-    }
-
-    void Update()
-    {
-        if (!GameController.instance.player.isLive)
-            return;
-
-        if (Vector2.Distance(target.transform.position, transform.position) <= GameController.instance.itemArea)
-        {
-
-            Vector2 vec = transform.position - target.transform.position;
-            vec = vec * Time.deltaTime * GameController.instance.player.speed * 2f;
-
-            transform.Translate(new Vector2(-vec.x, -vec.y));
-        }
-    }
-    void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("player"))
-        {
-            GameController.instance.playerCurEXP += exp;
-            Destroy(gameObject);
-        }
-    }
-    */
 }

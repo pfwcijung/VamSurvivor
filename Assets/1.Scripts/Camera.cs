@@ -4,11 +4,7 @@ using UnityEngine;
 
 public class Camera : MonoBehaviour
 {
-    void Start()
-    {
-
-    }
-
+    //카메라가 플레이어를 따라 오기 하기 위함
     void Update()
     {
         transform.position =

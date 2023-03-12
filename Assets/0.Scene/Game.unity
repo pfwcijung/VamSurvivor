@@ -5183,7 +5183,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 033766cc31c97904bae4404b8a079544, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.2
+  m_Volume: 0.05
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -5645,6 +5645,7 @@ MonoBehaviour:
   playerCurEXP: 0
   playerMaxEXP: 100
   itemArea: 1
+  upgradeItemArea: 1
   magnetActive: 0
   killCount: 0
   gameTime: 0
@@ -5777,7 +5778,6 @@ MonoBehaviour:
   - {fileID: 1140942464}
   - {fileID: 695545939}
   - {fileID: 1100857815}
-  upgradeButton: []
   pauseInfo: {fileID: 1005077513}
   playerInfo: {fileID: 120275101}
   weaponInfo: {fileID: 2132523741}
@@ -6412,7 +6412,6 @@ MonoBehaviour:
   curHp: 0
   maxHp: 0
   speed: 3
-  delayTimeRotate: 0
 --- !u!95 &740731413
 Animator:
   serializedVersion: 5
@@ -6645,7 +6644,7 @@ GameObject:
   - component: {fileID: 965384466}
   - component: {fileID: 965384465}
   m_Layer: 5
-  m_Name: 'Text (TMP) :: PlayerLevel'
+  m_Name: '(TMP) :: StageLevel'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6668,8 +6667,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 760, y: 415.00003}
-  m_SizeDelta: {x: 300, y: 50}
+  m_AnchoredPosition: {x: 650, y: 415.00003}
+  m_SizeDelta: {x: 500, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &965384465
 MonoBehaviour:
@@ -6691,7 +6690,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 00
+  m_text: 'Stage : 00'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b31cdd0824492a74aa607b9c538c4462, type: 2}
   m_sharedMaterial: {fileID: 4185114828617532660, guid: b31cdd0824492a74aa607b9c538c4462, type: 2}
@@ -16851,6 +16850,8 @@ MonoBehaviour:
     audio: {fileID: 8300000, guid: c8a3fe17a6641ec48b38fb455a40a223, type: 3}
   - name: Clear
     audio: {fileID: 8300000, guid: 2c4bc183a5df5aa4baf7c4fcf236a2de, type: 3}
+  - name: Hit
+    audio: {fileID: 8300000, guid: 0bddcb411d826e14bb26d40ae45d8e22, type: 3}
   NowBGMname: 
 --- !u!1 &1666654779
 GameObject:

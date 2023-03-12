@@ -7,8 +7,7 @@ using UnityEngine.UI;
 
 public abstract class Weapon : MonoBehaviour
 {
-    GameObject target;
-
+    //무기 정보 얻기 위함
     [SerializeField]
     public string weaponType;
     [SerializeField]
@@ -16,8 +15,10 @@ public abstract class Weapon : MonoBehaviour
     [SerializeField]
     public float speed;
 
+    //폭탄 무기 이미지
     public Image timerImage;
 
+    //총알이 무한으로 날라가는 것 방지
     float destroyTime = 0f;
 
     void Start()
@@ -27,6 +28,7 @@ public abstract class Weapon : MonoBehaviour
 
     void Update()
     {
+        //무기 이름에 따라 무기를 생성
         switch (weaponType)
         {
             case "ShootingBullet":
@@ -47,26 +49,17 @@ public abstract class Weapon : MonoBehaviour
                         Destroy(gameObject);
                     break;
                 }
-            /*case "RotateBullet":
-                {
-                    GameController.instance.player.delayTimeRotate += Time.deltaTime;
-                    transform.Rotate(Vector3.back * 100f * Time.deltaTime);
-                    if (GameController.instance.player.delayTimeRotate >= 3f)
-                    {
-                        Destroy(gameObject);
-                        GameController.instance.player.delayTimeRotate = 0;
-                    }
-                    break;
-                }*/
             case "BoomBullet":
                 {
                     destroyTime += Time.deltaTime;
                     timerImage.fillAmount = destroyTime / 2f;
+
+                    //폭탄 주변의 원이 꽉 차야 폭탄이 터지도록 만듬
                     if (timerImage.fillAmount >= 1)
                     {
                         GetComponent<CircleCollider2D>().enabled = true;
                     }
-
+                    
                     if (destroyTime > 2.2f)
                     {
                         Destroy(gameObject);
@@ -77,14 +70,14 @@ public abstract class Weapon : MonoBehaviour
                 break;
         }
     }
-
+    //무기 정보를 얻는 용도
     public void SetWeaponInfo(string weaponType, float damage, float speed)
     {
         this.weaponType = weaponType;
         this.damage = damage;
         this.speed = speed;
     }
-
+    //적과 충돌하면 적에게 데미지를 주며 무기 삭제
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("enemy"))

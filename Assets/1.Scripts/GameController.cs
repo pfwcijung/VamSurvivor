@@ -27,6 +27,7 @@ public class GameController : MonoBehaviour
     public float playerCurEXP = 0;
     public float playerMaxEXP = 100;
     public float itemArea = 1f;
+    public float upgradeItemArea = 1f;
     public bool magnetActive = false;
     float temp = 0;
     float timer = 0;
@@ -64,51 +65,57 @@ public class GameController : MonoBehaviour
     {
         instance = this;
 
+        //Bgm위치 설정을 위함
         CameraObj = GameObject.Find("Main Camera");
 
+        //무기 기본 설정
         ThrowDamage = 20;
         ThrowDelay = 1f;
         ShootingDamage = 10;
         ShootingDelay = 0.5f;
         BoomDamage = 50;
 
-    switch (PlayerInfo.instance.Act)
-    {
-        case "Throw":
-            setMaxHp = 150;
-            setSpeed = 5;
-            ThrowActive = true;
-            break;
-        case "Shoot":
-            setMaxHp = 100;
-            setSpeed = 3;
-            ShootingActive = true;
-            break;
-        case "Boom":
-            setMaxHp = 200;
-            setSpeed = 4;
-            BoomActive = true;
-            break;
+        //플레이어 인포에서 받아 온 정보를 바탕으로 플레이어 스탯 설정, 무기 활성화
+        switch (PlayerInfo.instance.Act)
+        {
+            case "Throw":
+                setMaxHp = 150;
+                setSpeed = 5;
+                ThrowActive = true;
+                break;
+            case "Shoot":
+                setMaxHp = 100;
+                setSpeed = 3;
+                ShootingActive = true;
+                break;
+            case "Boom":
+                setMaxHp = 200;
+                setSpeed = 4;
+                BoomActive = true;
+                break;
+        }
     }
-}
 
 
     void Update()
     {
         gameTime += Time.deltaTime;
 
+        //20초마다 레벨 상승(새로운 적 등장)
         if (gameTime >= 20)
         {
             gameTime = 0;
             level++;
         }
 
+        //5, 10, 15 단위로 적 스탯을 증가시키기 위함
         if(level >= upgradeCount)
         {
             upgradeCount *= 2;
             enemyUpgrade++;
         }
 
+        //플레이어 레벨업
         if (playerCurEXP >= playerMaxEXP)
         {
             playerCurEXP = playerCurEXP - playerMaxEXP;
@@ -118,6 +125,7 @@ public class GameController : MonoBehaviour
             playerMaxEXP += (playerMaxEXP / 2);
         }
 
+        //자석 아이템 먹었을 경우
         if (magnetActive)
         {
             timer += Time.deltaTime;
@@ -133,6 +141,7 @@ public class GameController : MonoBehaviour
         else
             storeItemAreaData();
 
+        //Pause UI 활성/비활성
         if (Input.GetKeyDown(KeyCode.Escape) && isPause)
         {
             isPause = false;
@@ -144,6 +153,7 @@ public class GameController : MonoBehaviour
             Time.timeScale = 0;
         }
 
+        //플레이어가 죽었을 경우(게임 오버) / 스테이지 60에 도달했을 경우(게임 클리어)
         if (!player.isLive || level >= 60)
         {
             isGameEnd = true;
@@ -152,6 +162,7 @@ public class GameController : MonoBehaviour
         }
     }
 
+    //플레이어의 기존 아이템 습득 범위 저장용
     void storeItemAreaData()
     {
         if (magnetActive)
@@ -160,6 +171,7 @@ public class GameController : MonoBehaviour
         temp = itemArea;
     }
 
+    //플레이어 업그레이드
     public void UpgradePlayer(int index)
     {
         switch (index)
@@ -171,7 +183,7 @@ public class GameController : MonoBehaviour
                     else
                     {
                         ThrowDamage += ThrowUpgradeDamage;
-                        ThrowDelay += ThrowUpgradeDelay;
+                        ThrowDelay -= ThrowUpgradeDelay;
                     }
                     break;
                 }
@@ -182,7 +194,7 @@ public class GameController : MonoBehaviour
                     else
                     {
                         ShootingDamage += ShootingUpgradeDamage;
-                        ShootingDelay += ShootingUpgradeDelay;
+                        ShootingDelay -= ShootingUpgradeDelay;
                     }
                     break;
                 }
@@ -198,21 +210,7 @@ public class GameController : MonoBehaviour
                 }
             case 3:
                 {
-                    magnetActive = true;
-                    if (magnetActive)
-                    {
-                        timer += Time.deltaTime;
-                        itemArea = 10f;
-
-                        if (timer > 1f)
-                        {
-                            itemArea = temp;
-                            magnetActive = false;
-                            timer = 0;
-                        }
-                    }
-                    else
-                        storeItemAreaData();
+                    itemArea += upgradeItemArea;                    
                     break;
                 }
             case 4:
