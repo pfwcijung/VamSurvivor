@@ -124,11 +124,6 @@ public class UIController : MonoBehaviour
 
             temp.RemoveAt(temp[rand]);
         }
-
-        for (int i = 0; i < 3; i++)
-        {
-            Debug.Log(temps[i]);
-        }
         for (int i = 0; i < 3; i++)
         {
             LevelupUI(i, temps[i]);
@@ -176,7 +171,7 @@ public class UIController : MonoBehaviour
 
         upgradeImage[i].sprite = sprite;
         upgradeText[i].text = str;
-
+        /*
         switch (i)
         {
             case 0:
@@ -188,28 +183,28 @@ public class UIController : MonoBehaviour
             case 2:
                 onButtonClick_3(index);
                 break;
-        }
+        }*/
     }
 
-    public void onButtonClick_1(int index)
+    public void onButtonClick_1()
     {
         Time.timeScale = 1;
-        GameController.instance.UpgradePlayer(index);
+        GameController.instance.UpgradePlayer(temps[0]);
         GameController.instance.levelUpUI.SetActive(false);
         temps.RemoveRange(0, temps.Count);
 
     }
-    public void onButtonClick_2(int index)
+    public void onButtonClick_2()
     {
         Time.timeScale = 1;
-        GameController.instance.UpgradePlayer(index);
+        GameController.instance.UpgradePlayer(temps[1]);
         GameController.instance.levelUpUI.SetActive(false);
         temps.RemoveRange(0, temps.Count);
     }
-    public void onButtonClick_3(int index)
+    public void onButtonClick_3()
     {
         Time.timeScale = 1;
-        GameController.instance.UpgradePlayer(index);
+        GameController.instance.UpgradePlayer(temps[2]);
         GameController.instance.levelUpUI.SetActive(false);
         temps.RemoveRange(0, temps.Count);
     }

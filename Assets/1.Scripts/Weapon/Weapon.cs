@@ -41,7 +41,7 @@ public abstract class Weapon : MonoBehaviour
             case "ThrowBullet":
                 {
                     destroyTime += Time.deltaTime;
-                    transform.Translate(Vector2.up);
+                    transform.Translate(Vector2.up * speed);
 
                     if (destroyTime >= 7f)
                         Destroy(gameObject);

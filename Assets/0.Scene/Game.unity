@@ -5559,7 +5559,7 @@ MonoBehaviour:
       - m_Target: {fileID: 619094282}
         m_TargetAssemblyTypeName: UIController, Assembly-CSharp
         m_MethodName: onButtonClick_3
-        m_Mode: 3
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -6006,7 +6006,7 @@ MonoBehaviour:
       - m_Target: {fileID: 619094282}
         m_TargetAssemblyTypeName: UIController, Assembly-CSharp
         m_MethodName: onButtonClick_1
-        m_Mode: 3
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -16254,7 +16254,7 @@ MonoBehaviour:
       - m_Target: {fileID: 619094282}
         m_TargetAssemblyTypeName: UIController, Assembly-CSharp
         m_MethodName: onButtonClick_2
-        m_Mode: 3
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
