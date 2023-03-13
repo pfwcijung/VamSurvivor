@@ -31,7 +31,7 @@ public class SpawnController : MonoBehaviour
 
     void Spawn(int index)
     {
-        GameObject enemy = GameController.instance.spawnEnemy.SpawnAct(index);
+        GameObject enemy = GameController.instance.spawn.SpawnAct("enemy", index);
         enemy.transform.position = spawnPoints[Random.Range(1, spawnPoints.Length)].position;
     }
 }

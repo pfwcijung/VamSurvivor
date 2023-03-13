@@ -5,20 +5,20 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
     public static GameController instance;
-    public SpawnEnemy spawnEnemy;
-    public SpawnWeapon spawnWeapon;
-    public SpawnItem spawnItem;
+    public Spawn spawn;
     public UIImageData imageData;
     public Player player;
     public GameObject CameraObj;
     public GameObject BGMobj;
 
     //게임 난이도 상승
+    [Header("#Game Level")]
     public float level = 0;
     public float enemyUpgrade = 1;
     private float upgradeCount = 5;
 
     //플레이어 관련
+    [Header("#Player Stat")]
     public float setMaxHp = 0;
     public float upgradeHp = 10;
     public float setSpeed = 0;
@@ -37,6 +37,8 @@ public class GameController : MonoBehaviour
     //게임 시간
     public float gameTime;
 
+
+    [Header("#UI")]
     //UI 활성/비활성
     public bool isPause = false;
     public bool isLevelUp = false;
@@ -47,6 +49,7 @@ public class GameController : MonoBehaviour
     public GameObject GameClearUI;
 
     //무기 기본 정보
+    [Header("#Weapon Info")]
     public float ThrowDamage;
     public float ThrowDelay;
     public float ShootingDamage;
@@ -54,6 +57,7 @@ public class GameController : MonoBehaviour
     public float BoomDamage;
 
     //무기 레벨업/활성화 관련
+    [Header("#Weapon LevelUp Info")]
     public float ThrowUpgradeDamage = 20;
     public float ThrowUpgradeDelay = 0.05f;
     public bool ThrowActive = false;

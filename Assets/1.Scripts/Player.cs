@@ -123,7 +123,7 @@ public class Player : MonoBehaviour
         delayTimeShooting += Time.deltaTime;
         if (delayTimeShooting > GameController.instance.ShootingDelay)
         {
-            GameObject weapon = GameController.instance.spawnWeapon.SpawnAct(0);
+            GameObject weapon = GameController.instance.spawn.SpawnAct("weapon", 0);
             weapon.transform.position = transform.position;
             delayTimeShooting = 0;
         }
@@ -134,7 +134,7 @@ public class Player : MonoBehaviour
         delayTimeThrow += Time.deltaTime;
         if (delayTimeThrow > GameController.instance.ThrowDelay)
         {
-            GameObject weapon = GameController.instance.spawnWeapon.SpawnAct(1);
+            GameObject weapon = GameController.instance.spawn.SpawnAct("weapon", 1);
             weapon.transform.position = transform.position;
             delayTimeThrow = 0;
         }
@@ -145,7 +145,7 @@ public class Player : MonoBehaviour
         delayTimeBoom += Time.deltaTime;
         if (delayTimeBoom >= 2f)
         {
-            Transform weapon = GameController.instance.spawnWeapon.SpawnAct(3).transform;
+            Transform weapon = GameController.instance.spawn.SpawnAct("weapon", 2).transform;
             delayTimeBoom = 0f;
         }
     }

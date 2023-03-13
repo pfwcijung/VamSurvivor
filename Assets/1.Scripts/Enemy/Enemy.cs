@@ -157,7 +157,7 @@ public abstract class Enemy : MonoBehaviour
             }
         }
 
-        items = GameController.instance.spawnItem.SpawnAct(idx, ed.exp);
+        items = GameController.instance.spawn.SpawnAct("item", idx);
         items.transform.position = gameObject.transform.position; // 적이 죽은 위치에 아이템 생성
     }
 }
