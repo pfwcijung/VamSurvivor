@@ -84,6 +84,9 @@ public abstract class Weapon : MonoBehaviour
         {
             collision.GetComponent<Enemy>().GetDamage(damage);
 
+            if (weaponType == "ThrowBullet")
+                return;
+
             Destroy(gameObject);
         }
     }
