@@ -26,6 +26,7 @@ public class GameController : MonoBehaviour
     public float playerLevel = 0;
     public float playerCurEXP = 0;
     public float playerMaxEXP = 100;
+    public float nextExp = 100;
     public float itemArea = 1f;
     public float upgradeItemArea = 1f;
     public bool magnetActive = false;
@@ -122,7 +123,7 @@ public class GameController : MonoBehaviour
             playerLevel++;
             isLevelUp = true;
             CameraObj.GetComponent<AudioController>().PlayBGM("LevelUp");
-            playerMaxEXP += (playerMaxEXP / 2);
+            playerMaxEXP += nextExp;
         }
 
         //자석 아이템 먹었을 경우
