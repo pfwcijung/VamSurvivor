@@ -124,7 +124,7 @@ public class UIController : MonoBehaviour
             if (temps.Count >= 3)
                 break;
 
-            temp.RemoveAt(temp[rand]);
+            temp.Remove(temp[rand]);
         }
         for (int i = 0; i < 3; i++)
         {
@@ -182,7 +182,6 @@ public class UIController : MonoBehaviour
         GameController.instance.UpgradePlayer(temps[0]);
         GameController.instance.levelUpUI.SetActive(false);
         GameController.instance.CameraObj.GetComponent<AudioController>().PlayBGM("Base");
-        temps.RemoveRange(0, temps.Count);
         temps.Clear();
     }
     public void onButtonClick_2()
@@ -191,7 +190,6 @@ public class UIController : MonoBehaviour
         GameController.instance.UpgradePlayer(temps[1]);
         GameController.instance.levelUpUI.SetActive(false);
         GameController.instance.CameraObj.GetComponent<AudioController>().PlayBGM("Base");
-        temps.RemoveRange(0, temps.Count);
         temps.Clear();
     }
     public void onButtonClick_3()
@@ -200,7 +198,6 @@ public class UIController : MonoBehaviour
         GameController.instance.UpgradePlayer(temps[2]);
         GameController.instance.levelUpUI.SetActive(false);
         GameController.instance.CameraObj.GetComponent<AudioController>().PlayBGM("Base");
-        temps.RemoveRange(0, temps.Count);
         temps.Clear();
     }
 }

@@ -226,6 +226,7 @@ public class GameController : MonoBehaviour
             case 5:
                 {
                     player.maxHp += upgradeHp;
+                    player.curHp += upgradeHp;
                     break;
                 }
             default:
