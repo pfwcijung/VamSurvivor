@@ -12,6 +12,5 @@ public class Enemy1 : Enemy
         ed.damage = 2f * upgrade;
         ed.curHp = 50f * upgrade;
         ed.maxHp = ed.curHp;
-        ed.exp = 10f * upgrade;
     }
 }

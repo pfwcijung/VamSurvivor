@@ -13,7 +13,6 @@ public struct EnemyData
     public float damage;
     public float curHp;
     public float maxHp;
-    public float exp;
 }
 
 public abstract class Enemy : MonoBehaviour
