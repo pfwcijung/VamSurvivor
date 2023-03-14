@@ -43,6 +43,11 @@ public class Player : MonoBehaviour
 
         PlayerMove();
 
+        BulletState();
+    }
+
+    void BulletState()
+    {
         nearstTarget = FindNearestTarget();
 
         //가까운 타겟 있고, 총알 무기가 활성화 했을 때 총알 무기가 생성
@@ -57,7 +62,6 @@ public class Player : MonoBehaviour
         if (GameController.instance.BoomActive)
             BoomBullet();
     }
-
     public void GetDamage(float dmg)
     {
         if (!isLive)

@@ -44,16 +44,7 @@ public class UIController : MonoBehaviour
         //게임 오버, 게임 클리어에 따른 UI, Bgm 설정
         if (GameController.instance.isGameEnd)
         {
-            if (GameController.instance.player.isLive)
-            {
-                GameController.instance.CameraObj.GetComponent<AudioController>().PlayBGM("Clear");
-                GameController.instance.GameClearUI.SetActive(true);
-            }
-            else
-            {
-                GameController.instance.CameraObj.GetComponent<AudioController>().PlayBGM("Over");
-                GameController.instance.GameOverUI.SetActive(true);
-            }
+            GameEnd();
         }
 
         //플레이어 사망
@@ -70,17 +61,8 @@ public class UIController : MonoBehaviour
             min++;
         }
 
-        //플레이어 Hp UI
-        hpImage.fillAmount = GameController.instance.player.curHp / GameController.instance.player.maxHp;
-        //플레이어 Exp UI
-        expImage.fillAmount = GameController.instance.playerCurEXP / GameController.instance.playerMaxEXP;
-        //게임 진행 시간 UI
-        time.text = string.Format($"{min:00}:{sec:00}");
-        //게임 난이도 UI
-        level.text = string.Format($"Stage:{GameController.instance.level:00}");
-        //죽은 적 수 UI
-        killcount.text = string.Format($"{GameController.instance.killCount:000}");
-
+        BaseUI();
+        
         //Pause UI 활성 / 비활성화
         if(GameController.instance.isPause)
         {
@@ -101,6 +83,35 @@ public class UIController : MonoBehaviour
             GameController.instance.isLevelUp = false;
         }
         
+    }
+
+    void GameEnd()
+    {
+        if (GameController.instance.player.isLive)
+        {
+            GameController.instance.CameraObj.GetComponent<AudioController>().PlayBGM("Clear");
+            GameController.instance.GameClearUI.SetActive(true);
+        }
+        else
+        {
+            GameController.instance.CameraObj.GetComponent<AudioController>().PlayBGM("Over");
+            GameController.instance.GameOverUI.SetActive(true);
+        }
+    }
+
+    void BaseUI()
+    {
+        //플레이어 Hp UI
+        hpImage.fillAmount = GameController.instance.player.curHp / GameController.instance.player.maxHp;
+        //플레이어 Exp UI
+        expImage.fillAmount = GameController.instance.playerCurEXP / GameController.instance.playerMaxEXP;
+        //게임 진행 시간 UI
+        time.text = string.Format($"{min:00}:{sec:00}");
+        //게임 난이도 UI
+        level.text = string.Format($"Stage:{GameController.instance.level:00}");
+        //죽은 적 수 UI
+        killcount.text = string.Format($"{GameController.instance.killCount:000}");
+
     }
     public void SetLevelupUI()
     {

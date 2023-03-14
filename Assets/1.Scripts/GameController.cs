@@ -104,6 +104,11 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
+        GameState();
+    }
+
+    void GameState()
+    {
         gameTime += Time.deltaTime;
 
         //20초마다 레벨 상승(새로운 적 등장)
@@ -114,7 +119,7 @@ public class GameController : MonoBehaviour
         }
 
         //5, 10, 15 단위로 적 스탯을 증가시키기 위함
-        if(level >= upgradeCount)
+        if (level >= upgradeCount)
         {
             upgradeCount *= 2;
             enemyUpgrade++;
@@ -166,7 +171,6 @@ public class GameController : MonoBehaviour
             BGMobj.SetActive(false);
         }
     }
-
     //플레이어의 기존 아이템 습득 범위 저장용
     void storeItemAreaData()
     {

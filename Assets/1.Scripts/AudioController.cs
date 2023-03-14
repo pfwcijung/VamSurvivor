@@ -23,6 +23,7 @@ public class AudioController : MonoBehaviour
         BGM.loop = false;
         if (BGMList.Length > 0)
             PlayBGM(BGMList[0].name);
+        BGM.volume = 0.2f;
     }
 
     public void PlayBGM(string name)
