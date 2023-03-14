@@ -1,10 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
-using UnityEditor.ShaderKeywordFilter;
-using UnityEditor.UIElements;
 using UnityEngine;
-using Debug = UnityEngine.Debug;
 
 //모든 적들이 공유하는 데이터
 public struct EnemyData
